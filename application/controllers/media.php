@@ -30,11 +30,13 @@ class Media extends CI_Controller {
             $data["links"] = $this->pagination->create_links();
             $data['query'] = $this->dbalbum->get_all_media();
             $data['meta'] = $this->dbsetting->get_meta_data();
+           // var_dump($data);die;
             $this->session->set_userdata("urlPagination", $config["base_url"]."/".$media);
             $this->load->view("bnw/templates/header", $data);
             $this->load->view("bnw/templates/menu");
             $this->load->view('bnw/media/mediaListing', $data);
             $this->load->view('bnw/templates/footer', $data);
+            
         } else {
             redirect('login/index/?url=' . $url, 'refresh');
         }

@@ -175,7 +175,7 @@ class Sliders extends CI_Controller {
             $this->load->view('bnw/templates/menu');
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('slide_name', 'Title', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('slide_name', 'Title', 'required|callback_xss_clean|max_length[200]');
 
             $slidename = $this->input->post('slide_name');
             $slidecontent = $this->input->post('slide_content');
@@ -284,6 +284,17 @@ if (file_exists($filename2)) {
             redirect('login/index/?url=' . $url, 'refresh');
         }
     }
-
+public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid cheractor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
     //============================================================================================================//
 }
