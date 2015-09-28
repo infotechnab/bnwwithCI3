@@ -35,6 +35,48 @@ public function record_count_user() {
             return true;
         }
     }
+    
+    public function check_email($email)
+    {
+       $ar = array("user_email"=>$email);
+        $this->db->or_where($ar);
+        $query = $this->db->get("user");
+        $count = $query->num_rows();
+        if($count > 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public function check_username($name)
+    {
+       $ar = array("user_name"=>$name);
+        $this->db->or_where($ar);
+        $query = $this->db->get("user");
+        $count = $query->num_rows();
+        if($count > 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    public function check_email_username_for_edit($name, $email, $id)
+    {
+        $where1 = "`id` != $id and (`user_name` = '$name' OR `user_email` = '$email') ";
+        $this->db->where($where1);
+        $query = $this->db->get("user");
+        $count = $query->num_rows();
+        if($count > 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    
 
     public function update_emailed_user($to, $token) {
         $data = array(
@@ -137,4 +179,13 @@ public function record_count_user() {
         $userKey = $this->db->get('user');
         return $userKey->result();
     }
+    
+    public function get_all_users_only()
+    {
+         $this->db->where('user_status', '1');
+        $query = $this->db->get('user');
+        return $query->result();
+    }
+    
+    
 }
