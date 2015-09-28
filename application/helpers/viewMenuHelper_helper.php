@@ -6,11 +6,8 @@
  * and open the template in the editor.
  */
 
+include 'POD_database_helper.php';
 
-function pdo_db(){
-    $db = new PDO("mysql:host=localhost;dbname=bnw", "root", "");
-    return $db;
-}
  function query($parent_id) { //function to run a query  
      
 	$query = pdo_db()->query  ( "SELECT * FROM navigation WHERE parent_id=$parent_id");

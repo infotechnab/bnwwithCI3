@@ -92,7 +92,18 @@ class bnw extends CI_Controller {
             redirect('login/index/?url=' . $url, 'refresh');
         }
     }
-
+public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
     function addcoupon() {
         $url = current_url();
         if ($this->session->userdata('admin_logged_in')) {
@@ -106,9 +117,9 @@ class bnw extends CI_Controller {
             $this->load->view('bnw/templates/footer', $data);
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('key', 'Coupon Key', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('rate', 'Discount Rate', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('expdate', 'Expire Date', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('key', 'Coupon Key', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('rate', 'Discount Rate', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('expdate', 'Expire Date', 'required|callback_xss_clean|max_length[200]');
 
             if ($this->form_validation->run() == FALSE) {
 

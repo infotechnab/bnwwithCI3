@@ -5,10 +5,7 @@
  * and open the template in the editor.
  */
 
-function pdo_db(){
-    $db = new PDO("mysql:host=localhost;dbname=bnw", "root", "");
-    return $db;
-}
+  include 'POD_database_helper.php';
 
  function query($parent_id) { //function to run a query  
      

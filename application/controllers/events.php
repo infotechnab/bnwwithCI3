@@ -99,7 +99,7 @@ if (file_exists($filename2)) {
             
             $this->load->library('upload',$config);
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('Name', 'Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('Name', 'Name', 'required|callback_xss_clean|max_length[200]');
 
             if (($this->form_validation->run() == TRUE)) {
                 if ($_FILES && $_FILES['file']['name'] !== "") {
@@ -221,7 +221,7 @@ if (file_exists($filename1)) {
              $this->load->library('upload');
           
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('event_name', 'Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('event_name', 'Name', 'required|callback_xss_clean|max_length[200]');
 
             if ($this->form_validation->run() == FALSE) {
 
@@ -360,5 +360,17 @@ if (file_exists($filename2)) {
             redirect('login/index/?url=' . $url, 'refresh');
         }
     }
+    public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
     //=============================== CLOSE EVENTS ================================================//
 }

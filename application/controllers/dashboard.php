@@ -32,7 +32,7 @@ class Dashboard extends CI_Controller {
             $this->load->view('bnw/templates/menu');
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('menu_name', 'Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('menu_name', 'Name', 'required|callback_xss_clean|max_length[200]');
 
             if ($this->form_validation->run() == FALSE) {
 
@@ -89,7 +89,7 @@ class Dashboard extends CI_Controller {
             $id = $this->input->post('id');
             $data['query'] = $this->dbdashboard->findmenu($id);
             //set validation rules
-            $this->form_validation->set_rules('menu_name', 'Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('menu_name', 'Name', 'required|callback_xss_clean|max_length[200]');
 
 
             if ($this->form_validation->run() == FALSE) {
@@ -587,8 +587,8 @@ class Dashboard extends CI_Controller {
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
 
-            $this->form_validation->set_rules('navigation_name', 'Name', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('navigation_link', 'Link', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('navigation_name', 'Name', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('navigation_link', 'Link', 'required|callback_xss_clean|max_length[200]');
 
             if ($this->form_validation->run() == FALSE) {
 
@@ -689,7 +689,7 @@ class Dashboard extends CI_Controller {
             $this->load->view("bnw/templates/menu");
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('category_name', 'Category Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('category_name', 'Category Name', 'required|callback_xss_clean|max_length[200]');
             if (($this->form_validation->run() == TRUE)) {
                     $categoryname = $this->input->post('category_name');
                     $this->dbdashboard->add_new_category($categoryname);
@@ -735,7 +735,7 @@ class Dashboard extends CI_Controller {
             $this->load->library(array('form_validation', 'session'));
             $id = $this->input->post('id');
             //set validation rules
-            $this->form_validation->set_rules('category_name', 'Category Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('category_name', 'Category Name', 'required|callback_xss_clean|max_length[200]');
             if (($this->form_validation->run() == TRUE)) {
                     $categoryname = $this->input->post('category_name');
                      $navigationName = $categoryname;
@@ -875,5 +875,18 @@ class Dashboard extends CI_Controller {
             }
         }
     }
+    
+public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
     //============================= CLOSE CATEGORY ========================================//
 }

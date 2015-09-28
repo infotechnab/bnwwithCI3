@@ -194,8 +194,8 @@ class Login extends CI_Controller {
         
         $data['meta'] = $this->dbsetting->get_meta_data();
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('user_pass', 'Password', 'required|xss_clean|max_length[200]|matches[user_confirm_pass]');
-        $this->form_validation->set_rules('user_confirm_pass', 'Re-Password', 'required|xss_clean|max_length[200]');
+        $this->form_validation->set_rules('user_pass', 'Password', 'required|callback_xss_clean|max_length[200]|matches[user_confirm_pass]');
+        $this->form_validation->set_rules('user_confirm_pass', 'Re-Password', 'required|callback_xss_clean|max_length[200]');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view("bnw/templates/header", $data);
@@ -241,7 +241,7 @@ class Login extends CI_Controller {
 	{
 		if ($this->security->xss_clean($str, TRUE) === FALSE)
 		{
-			$this->form_validation->set_message('xss_clean', 'The %s is invalid cheractor');
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
 			return FALSE;
 		}
 		else

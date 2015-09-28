@@ -68,7 +68,7 @@ class Album extends CI_Controller {
             $this->load->view('bnw/templates/menu');
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('album_name', 'Album Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('album_name', 'Album Name', 'required|callback_xss_clean|max_length[200]');
             if (($this->form_validation->run() == FALSE)) {  //if not valid
                 $error = "Enter Album Name";
                 $this->load->view('bnw/album/index', $error);
@@ -99,7 +99,7 @@ class Album extends CI_Controller {
             $this->load->view('bnw/templates/menu');
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('title', 'Title', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('title', 'Title', 'required|callback_xss_clean|max_length[200]');
             $albumid = $this->input->post('id');
             $data['query'] = $this->dbalbum->get_album();
             if (($this->form_validation->run() == FALSE) || (!$this->upload->do_upload('file'))) {
@@ -201,7 +201,7 @@ class Album extends CI_Controller {
             $this->load->view('bnw/templates/menu');
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('album_name', 'Album Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('album_name', 'Album Name', 'required|callback_xss_clean|max_length[200]');
             if (($this->form_validation->run() == FALSE)) {        //if not valid
                 $error = "Enter Album Name";
                 $this->load->view('bnw/album/index', $error);
@@ -283,5 +283,16 @@ class Album extends CI_Controller {
             redirect('login/index/?url=' . $url, 'refresh');
         }
     }
-
+public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 }

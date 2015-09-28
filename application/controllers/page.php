@@ -80,8 +80,8 @@ class Page extends CI_Controller {
             $this->load->helper('date');
             $this->load->library(array('form_validation', 'session'));
 
-            $this->form_validation->set_rules('page_name', 'Title', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('page_content', 'Body', 'required|xss_clean');
+            $this->form_validation->set_rules('page_name', 'Title', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('page_content', 'Body', 'required|callback_xss_clean');
 
 
             if (($this->form_validation->run() == TRUE)) {
@@ -220,8 +220,8 @@ class Page extends CI_Controller {
             $this->load->library(array('form_validation', 'session'));
            $id = $this->input->post('id');
                         $data['query'] = $this->dbpage->findpage($id);
-            $this->form_validation->set_rules('page_name', 'Page Name', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('page_content', 'Body', 'required|xss_clean');
+            $this->form_validation->set_rules('page_name', 'Page Name', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('page_content', 'Body', 'required|callback_xss_clean');
 
 
             if (($this->form_validation->run() == TRUE)) {
@@ -413,5 +413,16 @@ if (file_exists($filename1)) {
             redirect('login/index/?url=' . $url, 'refresh');
         }
     }
-
+ public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 }

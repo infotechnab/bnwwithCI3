@@ -108,8 +108,8 @@ class Offers extends CI_Controller {
 //                }
 //            }
             //set validation rules
-            $this->form_validation->set_rules('post_title', 'Title', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('post_content', 'Body', 'required|xss_clean');
+            $this->form_validation->set_rules('post_title', 'Title', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('post_content', 'Body', 'required|callback_xss_clean');
 
 
 
@@ -285,8 +285,8 @@ if (file_exists($filename2)) {
 //                }
 //            }
             //set validation rules
-            $this->form_validation->set_rules('post_title', 'Page Name', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('post_content', 'Body', 'required|xss_clean');
+            $this->form_validation->set_rules('post_title', 'Page Name', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('post_content', 'Body', 'required|callback_xss_clean');
 
 
             if (($this->form_validation->run() == TRUE)) {
@@ -415,4 +415,17 @@ if (file_exists($filename2)) {
             redirect('login/index/?url=' . $url, 'refresh');
         }
     }
+    
+    public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 }

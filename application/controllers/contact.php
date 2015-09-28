@@ -27,6 +27,18 @@ class Contact extends CI_Controller {
         }
           } 
     
+public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
     public function addContact()
     {
        if ($this->session->userdata('admin_logged_in')) {  
@@ -34,13 +46,13 @@ class Contact extends CI_Controller {
             $data['contact'] = $this->contact_model->get_contact_form();
                 $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('title', 'Organization Name', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,100}$/]|required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('street', 'Street', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,100}$/]|required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('city', 'City', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,50}$/]|required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('district', 'District', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,50}$/]|required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('country', 'Country', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,35}$/]|required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('contact1', 'Contact1', 'trim|regex_match[/^[0-9_\-. +]{5,15}$/]|required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('email', 'Email', 'trim|regex_match[/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/]|required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('title', 'Organization Name', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,100}$/]|required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('street', 'Street', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,100}$/]|required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('city', 'City', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,50}$/]|required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('district', 'District', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,50}$/]|required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('country', 'Country', 'trim|regex_match[/^[a-z,0-9,A-Z_\-. ]{5,35}$/]|required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('contact1', 'Contact1', 'trim|regex_match[/^[0-9_\-. +]{5,15}$/]|required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|regex_match[/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/]|required|callback_xss_clean|max_length[200]');
             if ($this->form_validation->run() == FALSE) {
             $this->load->view('bnw/templates/header', $data);
             $this->load->view('bnw/templates/menu');

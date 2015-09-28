@@ -3,11 +3,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-function pdo_db(){
-    $db = new PDO("mysql:host=localhost;dbname=bnw", "root", "");
-    return $db;
-}
+include 'POD_database_helper.php';
+        
 if(isset($_POST['menu_id_next']))
     $a=($_POST['menu_id_next']);
 else {

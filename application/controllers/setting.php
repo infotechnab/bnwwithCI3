@@ -52,7 +52,7 @@ class Setting extends CI_Controller {
             $this->load->view('bnw/templates/menu');
             $this->load->helper('form');
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('header_title', 'Title', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('header_title', 'Title', 'required|callback_xss_clean|max_length[200]');
 
             if (($this->form_validation->run() == TRUE)) {
                 if ($_FILES && $_FILES['file_name']['name'] !== "") {
@@ -113,10 +113,10 @@ class Setting extends CI_Controller {
         if ($this->session->userdata('admin_logged_in')) {
 
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('sidebar_title', 'Title', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('sidebar_description', 'Description', 'required|xss_clean');
+            $this->form_validation->set_rules('sidebar_title', 'Title', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('sidebar_description', 'Description', 'required|callback_xss_clean');
             
-            // $this->form_validation->set_rules('header_bgcolor', 'Description', 'required|xss_clean');
+            // $this->form_validation->set_rules('header_bgcolor', 'Description', 'required|callback_xss_clean');
             if (($this->form_validation->run() == FALSE)) {
 
                 $data['meta'] = $this->dbsetting->get_meta_data();
@@ -214,10 +214,10 @@ class Setting extends CI_Controller {
             $this->load->library('upload', $config);
 
             $this->load->library(array('form_validation', 'session'));
-            $this->form_validation->set_rules('url', 'Url', 'required|xss_clean|max_length[200]');
-            $this->form_validation->set_rules('title', 'Title', 'required|xss_clean');
-            $this->form_validation->set_rules('keyword', 'Keyword', 'required|xss_clean');
-            $this->form_validation->set_rules('description', 'Description', 'required|xss_clean');
+            $this->form_validation->set_rules('url', 'Url', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('title', 'Title', 'required|callback_xss_clean');
+            $this->form_validation->set_rules('keyword', 'Keyword', 'required|callback_xss_clean');
+            $this->form_validation->set_rules('description', 'Description', 'required|callback_xss_clean');
             if (($this->form_validation->run() == FALSE)) {
                 $data['error'] = $this->upload->display_errors();
                 $data['meta'] = $this->dbsetting->get_meta_data();
@@ -254,5 +254,17 @@ class Setting extends CI_Controller {
             redirect('login/index/?url=' . $url, 'refresh');
         }
     }
+    public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 }
 ?>

@@ -1097,7 +1097,7 @@ class CI_Form_validation {
 			? ($str === $this->_field_data[$field]['postdata'])
 			: FALSE;
 	}
-
+            
 	// --------------------------------------------------------------------
 
 	/**

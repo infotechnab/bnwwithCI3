@@ -73,7 +73,7 @@ class Media extends CI_Controller {
             }
             
            
-            $this->form_validation->set_rules('media_name', 'media Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('media_name', 'media Name', 'required|callback_xss_clean|max_length[200]');
             if (($this->form_validation->run() == FALSE) || (!$this->upload->do_upload('file_name'))) {
                 $data['error'] = $this->upload->display_errors();
                 $this->load->view('bnw/media/addNew', $data);
@@ -144,7 +144,7 @@ class Media extends CI_Controller {
                     $media_association_id = $id->id;
                 }
             }
-            $this->form_validation->set_rules('media_name', 'media Name', 'required|xss_clean|max_length[200]');
+            $this->form_validation->set_rules('media_name', 'media Name', 'required|callback_xss_clean|max_length[200]');
             if ($this->form_validation->run() == FALSE) {
                 $id = $this->input->post('id');
                 $data['query'] = $this->dbalbum->findmedia($id);
@@ -200,5 +200,16 @@ class Media extends CI_Controller {
             redirect('login/index/?url=' . $url, 'refresh');
         }
     }
-    
+    public function xss_clean($str)
+	{
+		if ($this->security->xss_clean($str, TRUE) === FALSE)
+		{
+			$this->form_validation->set_message('xss_clean', 'The %s is invalid charactor');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 }
