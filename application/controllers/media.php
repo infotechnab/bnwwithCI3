@@ -73,7 +73,7 @@ class Media extends CI_Controller {
             }
             
            
-            $this->form_validation->set_rules('media_name', 'media Name', 'required|callback_xss_clean|max_length[200]');
+            $this->form_validation->set_rules('media_name', 'media Name', 'required|xss_clean|max_length[200]');
             if (($this->form_validation->run() == FALSE) || (!$this->upload->do_upload('file_name'))) {
                 $data['error'] = $this->upload->display_errors();
                 $this->load->view('bnw/media/addNew', $data);
