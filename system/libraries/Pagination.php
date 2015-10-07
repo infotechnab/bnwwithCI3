@@ -55,230 +55,43 @@ class CI_Pagination {
 	 *
 	 * @var	string
 	 */
-	protected $base_url		= '';
+    
+    var $base_url			= ''; // The page we are linking to
+	var $prefix				= ''; // A custom prefix added to the path.
+	var $suffix				= ''; // A custom suffix added to the path.
 
-	/**
-	 * Prefix
-	 *
-	 * @var	string
-	 */
-	protected $prefix = '';
+	var $total_rows			=  0; // Total number of items (database results)
+	var $per_page			= 10; // Max number of items you want shown per page
+	var $num_links			=  2; // Number of "digit" links to show before/after the currently viewed page
+	var $cur_page			=  0; // The current page being viewed
+	var $use_page_numbers	= FALSE; // Use page number for segment instead of offset
+	var $first_link			= '&lt;&lt;';
+	var $next_link			= 'Next';
+	var $prev_link			= 'Previous';
+	var $last_link			= '&gt;&gt;';
+	var $uri_segment		= 3;
+	var $full_tag_open		= '<ul class="tsc_pagination tsc_paginationA tsc_paginationA01">';
+	var $full_tag_close		= '</ul>';
+	var $first_tag_open		= '<li>';
+	var $first_tag_close	= '</li>';
+	var $last_tag_open		= '<li>';
+	var $last_tag_close		= '</li>';
+	var $first_url			= ''; // Alternative URL for the First Page.
+	var $cur_tag_open		= '<li class="current"><a href="#">';
+	var $cur_tag_close		= '</a></li>';
+	var $next_tag_open		= '<li>';
+	var $next_tag_close		= '</li>';
+	var $prev_tag_open		= '<li>';
+	var $prev_tag_close		= '</li>';
+	var $num_tag_open		= '<li>';
+	var $num_tag_close		= '</li>';
+	var $page_query_string	= FALSE;
+	var $query_string_segment = 'per_page';
+	var $display_pages		= TRUE;
+	var $anchor_class		= '';
 
-	/**
-	 * Suffix
-	 *
-	 * @var	string
-	 */
-	protected $suffix = '';
-
-	/**
-	 * Total number of items
-	 *
-	 * @var	int
-	 */
-	protected $total_rows = 0;
-
-	/**
-	 * Number of links to show
-	 *
-	 * Relates to "digit" type links shown before/after
-	 * the currently viewed page.
-	 *
-	 * @var	int
-	 */
-	protected $num_links = 2;
-
-	/**
-	 * Items per page
-	 *
-	 * @var	int
-	 */
-	public $per_page = 10;
-
-	/**
-	 * Current page
-	 *
-	 * @var	int
-	 */
-	public $cur_page = 0;
-
-	/**
-	 * Use page numbers flag
-	 *
-	 * Whether to use actual page numbers instead of an offset
-	 *
-	 * @var	bool
-	 */
-	protected $use_page_numbers = FALSE;
-
-	/**
-	 * First link
-	 *
-	 * @var	string
-	 */
-	protected $first_link = '&lsaquo; First';
-
-	/**
-	 * Next link
-	 *
-	 * @var	string
-	 */
-	protected $next_link = '&gt;';
-
-	/**
-	 * Previous link
-	 *
-	 * @var	string
-	 */
-	protected $prev_link = '&lt;';
-
-	/**
-	 * Last link
-	 *
-	 * @var	string
-	 */
-	protected $last_link = 'Last &rsaquo;';
-
-	/**
-	 * URI Segment
-	 *
-	 * @var	int
-	 */
-	protected $uri_segment = 0;
-
-	/**
-	 * Full tag open
-	 *
-	 * @var	string
-	 */
-	protected $full_tag_open = '';
-
-	/**
-	 * Full tag close
-	 *
-	 * @var	string
-	 */
-	protected $full_tag_close = '';
-
-	/**
-	 * First tag open
-	 *
-	 * @var	string
-	 */
-	protected $first_tag_open = '';
-
-	/**
-	 * First tag close
-	 *
-	 * @var	string
-	 */
-	protected $first_tag_close = '';
-
-	/**
-	 * Last tag open
-	 *
-	 * @var	string
-	 */
-	protected $last_tag_open = '';
-
-	/**
-	 * Last tag close
-	 *
-	 * @var	string
-	 */
-	protected $last_tag_close = '';
-
-	/**
-	 * First URL
-	 *
-	 * An alternative URL for the first page
-	 *
-	 * @var	string
-	 */
-	protected $first_url = '';
-
-	/**
-	 * Current tag open
-	 *
-	 * @var	string
-	 */
-	protected $cur_tag_open = '<strong>';
-
-	/**
-	 * Current tag close
-	 *
-	 * @var	string
-	 */
-	protected $cur_tag_close = '</strong>';
-
-	/**
-	 * Next tag open
-	 *
-	 * @var	string
-	 */
-	protected $next_tag_open = '';
-
-	/**
-	 * Next tag close
-	 *
-	 * @var	string
-	 */
-	protected $next_tag_close = '';
-
-	/**
-	 * Previous tag open
-	 *
-	 * @var	string
-	 */
-	protected $prev_tag_open = '';
-
-	/**
-	 * Previous tag close
-	 *
-	 * @var	string
-	 */
-	protected $prev_tag_close = '';
-
-	/**
-	 * Number tag open
-	 *
-	 * @var	string
-	 */
-	protected $num_tag_open = '';
-
-	/**
-	 * Number tag close
-	 *
-	 * @var	string
-	 */
-	protected $num_tag_close = '';
-
-	/**
-	 * Page query string flag
-	 *
-	 * @var	bool
-	 */
-	protected $page_query_string = FALSE;
-
-	/**
-	 * Query string segment
-	 *
-	 * @var	string
-	 */
-	protected $query_string_segment = 'per_page';
-
-	/**
-	 * Display pages flag
-	 *
-	 * @var	bool
-	 */
-	protected $display_pages = TRUE;
-
-	/**
-	 * Attributes
-	 *
-	 * @var	string
-	 */
+    
+	
 	protected $_attributes = '';
 
 	/**
