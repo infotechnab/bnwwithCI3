@@ -25,14 +25,14 @@ class Login extends CI_Controller {
                 $data['link'] = base_url().'bnw';
             }
             
-        if ($this->session->userdata('admin_logged_in')&& $this->session->userdata('admin')) {
-             redirect('login', 'refresh');
-        } else {
+//        if ($this->session->userdata('admin_logged_in')&& $this->session->userdata('admin')) {
+//             redirect('login', 'refresh');            by krishna
+//        } else {
             //$this->session->sess_destroy();
             $data['meta'] = $this->dbsetting->get_meta_data();
             $this->load->view('bnw/login/loginTemplate', $data);
             $this->load->view('bnw/templates/footer', $data);
-        }
+//        }
     }
 
     function validate_credentials() {
@@ -77,8 +77,9 @@ class Login extends CI_Controller {
             } else { // incorrect username or password
                  $data['meta'] = $this->dbsetting->get_meta_data();
                 $this->session->set_flashdata('message', 'Username or password incorrect');
-               $data['link'] = base_url().'bnw';
-               redirect('login');
+//               $data['link'] = base_url().'bnw';  by krishna
+//               redirect('login');     by krishna
+               redirect('login/index/?url=' . $link, 'refresh');
             }
         }
     }
@@ -93,7 +94,7 @@ class Login extends CI_Controller {
                 );
             $this->session->unset_userdata($data);
             $this->session->sess_destroy();
-            $this->session->set_userdata(array('username' => '', 'admin_logged_in' => false));
+    //        $this->session->set_userdata(array('username' => '', 'admin_logged_in' => false)); by krishna
             redirect('login');
         }
     }

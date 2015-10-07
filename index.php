@@ -1,4 +1,5 @@
 <?php
+ ob_start();
 /**
  * CodeIgniter
  *
@@ -291,3 +292,87 @@ switch (ENVIRONMENT)
  */
         
 require_once BASEPATH.'core/CodeIgniter.php';
+
+
+
+        $back=current_url();
+        $lower_back=strtolower ( $back );
+    if(!isset($CI->session->userdata["admin_logged_in"]) || $CI->session->userdata["admin_logged_in"]!=true){
+            $url_access_array=array("bnw","album","contact","dashboard","demo","error","events","gadgets","imagemanipulator","media","offers","page","publication","setting","sliders","social_share","subscribers","user","viewcaptcha"); //not access
+                
+            if(has_in_url($lower_back, $url_access_array)){
+                     $CI->session->set_flashdata('message', 'Unauthorized access attempted');
+                    if(has_redirect($back)){
+                       if(has_redirect_to_login($back)){
+                           ob_end_clean();
+                            header("location:".base_url()."login/index/");
+                       }else{
+                           ob_end_clean();
+                            header("location:".base_url()."login/index/".redirect_to($back));
+                       }
+                   }else{
+                            $xyzz=explode("/",$back);
+                            if(in_array("login", $xyzz)){
+                                ob_end_clean();
+                                header("location:".base_url()."login/index/");
+                            }else{
+                                ob_end_clean();
+                                 redirect('login/index/?url=' . $back, 'refresh');
+                            }
+                   }
+               }
+}
+
+    
+    
+    function has_in_url($url,$access_url_array){
+     $url_array=explode("/",$url);
+     $key=array_search("?url=http:",$url_array);
+     if($key){
+     $url_array=array_slice($url_array, 0, $key); 
+     foreach($url_array as $urll){
+            if(in_array(trim($urll), $access_url_array )){
+                return true;
+                }
+            }
+     }else{
+        foreach($url_array as $urll){
+            if(in_array(trim($urll), $access_url_array )){
+                return true;
+                }
+            }
+        }
+    return false;
+    }
+    
+    
+    function redirect_to($url){
+         $url_array=explode("/",$url);
+         $key=array_search("?url=http:",$url_array);
+         $sliced_array=array_slice($url_array,$key);
+         $back_url="";
+         foreach($sliced_array as $abc){
+             $back_url.=$abc."/";
+         }
+         return $back_url;
+    }
+    
+    function has_redirect_to_login($url){
+         $url_array=explode("/",$url);
+         if($key=array_search("?url=http:",$url_array)){
+             $sliced_array=array_slice($url_array,$key);
+              if(in_array(trim("login"),$sliced_array)){
+                    return true;
+                }
+         return false;
+         }
+         return false;
+     }
+    
+    function has_redirect($url){
+        $url_array=explode("/",$url);
+         if(in_array(trim("?url=http:"),$url_array)){
+             return true;
+         }
+         return false;
+    }
