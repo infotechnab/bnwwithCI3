@@ -298,7 +298,7 @@ require_once BASEPATH.'core/CodeIgniter.php';
         $back=current_url();
         $lower_back=strtolower ( $back );
     if(!isset($CI->session->userdata["admin_logged_in"]) || $CI->session->userdata["admin_logged_in"]!=true){
-            $url_access_array=array("bnw","album","contact","dashboard","demo","error","events","gadgets","imagemanipulator","media","offers","page","publication","setting","sliders","social_share","subscribers","user","viewcaptcha"); //not access
+            $url_access_array=array("bnw","album","contact","dashboard","demo","error","events","gadgets","imagemanipulator","media","offers","publication","setting","sliders","social_share","subscribers","user","viewcaptcha"); //not access
                 
             if(has_in_url($lower_back, $url_access_array)){
                      $CI->session->set_flashdata('message', 'Unauthorized access attempted');
