@@ -15,6 +15,7 @@ class Album extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
+        $this->load->helper("security");
     }
 
     public function index() {
