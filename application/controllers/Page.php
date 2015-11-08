@@ -166,7 +166,12 @@ class Page extends CI_Controller {
                     $tags = $this->input->post('page_tags');
                     $allowComment = $this->input->post('allow_comment');
                     $allowLike = $this->input->post('allow_like');
-                    $allowShare = $this->input->post('allow_share');
+                    
+                    if(isset($_POST["allow_share"])){
+                        $allowShare = $this->input->post('allow_share');
+                    }else{
+                        $allowShare=0;
+                    }
                     $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image);
                     $this->session->set_flashdata('message', 'One pages added sucessfully');
                     redirect('page/pages');

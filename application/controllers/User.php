@@ -95,7 +95,7 @@ class User extends CI_Controller {
             $this->form_validation->set_rules('user_fname', 'First Name', 'required|xss_clean|max_length[200]');
             $this->form_validation->set_rules('user_lname', 'Last Name', 'required|xss_clean|max_length[200]');
             $this->form_validation->set_rules('user_email', 'User email', 'xss_clean|regex_match[/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/]|max_length[200]|valid_email|callback_check_email');
-            $this->form_validation->set_rules('user_pass', 'Password', 'xss_clean|min_length[5]|max_length[32]|max_length[200]');
+            $this->form_validation->set_rules('user_pass', 'Password', 'xss_clean|min_length[5]|required|max_length[32]|max_length[200]');
             $this->form_validation->set_rules('user_type', 'User Type', 'required|xss_clean|max_length[200]');
             if ($this->form_validation->run() == FALSE) {
                 $this->load->view('bnw/users/addNew');
