@@ -21,18 +21,20 @@ class Media extends CI_Controller {
        public function medias() {
         $url = current_url();
         if ($this->session->userdata('admin_logged_in')) {
-            $config = array();
+            
+           $config = array();
             $config["base_url"] = base_url() . "media/medias";
-            $config["total_rows"] = $this->dbuser->record_count_user();
-            $config["per_media"] = 6;
+            $config["total_rows"] = $this->dbalbum->record_count_media();
+            $config["per_page"] = 6;
             $this->pagination->initialize($config);
-            $media = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-            $data["query"] = $this->dbuser->get_all_user($config["per_media"], $media);
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+            $data['query'] = $this->dbalbum->get_all_media($config["per_page"], $page);
             $data["links"] = $this->pagination->create_links();
-            $data['query'] = $this->dbalbum->get_all_media();
             $data['meta'] = $this->dbsetting->get_meta_data();
-           // var_dump($data);die;
-            $this->session->set_userdata("urlPagination", $config["base_url"]."/".$media);
+            $this->session->set_userdata("urlPagination", $config["base_url"]."/".$page);
+            
+           
             $this->load->view("bnw/templates/header", $data);
             $this->load->view("bnw/templates/menu");
             $this->load->view('bnw/media/mediaListing', $data);
@@ -78,8 +80,12 @@ class Media extends CI_Controller {
                 $data['error'] = $this->upload->display_errors();
                 $this->load->view('bnw/media/addNew', $data);
             } else {   //if valid
-                $data = $this->upload->data();
-                $image = $data['file_name'];
+                
+                 $data = array('upload_data' => $this->upload->data());
+                $image = $data['upload_data']['file_name'];
+               
+              //  $data = $this->upload->data();
+               // $image = $data['file_name'];
                 // $imgname = $img_name;
                 $image_thumb = dirname('thumb_' . $image . '/demo');
                 $config['image_library'] = 'gd2';
@@ -90,7 +96,7 @@ class Media extends CI_Controller {
                 $config['height'] = 180;
                 $this->load->library('image_lib', $config);
                 $this->image_lib->resize();
-                $data = array('upload_data' => $this->upload->data('file'));
+                $data = array('upload_data' => $this->upload->data());
                 $medianame = $this->input->post('media_name');
                 $mediatype = $data['upload_data']['file_name'];
                 $medialink = base_url() . 'content/images/' . $mediatype;
@@ -162,8 +168,25 @@ class Media extends CI_Controller {
                 } else {
                     $id = $this->input->post('id');
                     $this->upload->do_upload('file_name');
-                    $medianame = $this->input->post('media_name');
-                    $mediatype = $_FILES['file_name']['name'];
+                    $data = array('upload_data' => $this->upload->data());
+                $medianame = $this->input->post('media_name');
+                $mediatype = $data['upload_data']['file_name'];
+                
+                $image = $data['upload_data']['file_name'];
+               
+              //  $data = $this->upload->data();
+               // $image = $data['file_name'];
+                // $imgname = $img_name;
+                $image_thumb = dirname('thumb_' . $image . '/demo');
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './content/uploads/images/' . $image;
+                $config['new_image'] = $image_thumb;
+                $config['maintain_ratio'] = TRUE;
+                $config['width'] = 240;
+                $config['height'] = 180;
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+                
                     $medialink = $this->input->post('media_link');
                     $this->dbalbum->update_media($id, $medianame, $mediatype, $media_association_id, $medialink);
                     $this->session->set_flashdata('message', 'Media data Modified Sucessfully');

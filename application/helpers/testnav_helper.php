@@ -14,7 +14,7 @@
 }
 function has_child($query) { //This function checks if the menus has childs or not
 	$result=pdo_db()->query($query->queryString);
-	$rows =count($result->fetchObject());
+	$rows = $result->rowCount();
 	if ($rows > 0) {
 		return true;
 	} else {

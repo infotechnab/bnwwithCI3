@@ -36,7 +36,7 @@
              if(in_array(trim($file_ext), $exts)) {
             
          if($file_ext=='jpg' || $file_ext=='png' || $file_ext=='jpeg' || $file_ext=='bmp'){ ?>
-                <img src='<?php echo base_url().'content/uploads/images/'.$data->media_type; ?>' style="height: 60px; width: 60px"/>
+                <img src='<?php echo base_url().'content/uploads/images/thumb_'.$data->media_type; ?>' style="height: 60px; width: 60px"/>
                     <?php } else{ echo $file_ext.' file'; } ?> </td>
             <td><?php echo base_url().'content/uploads/images/'.$file; ?></td>
             <td><?php echo anchor('media/editmedia/'.$data->id,'<i class="fa fa-pencil-square-o"></i>'); ?> / 

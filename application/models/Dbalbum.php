@@ -99,7 +99,8 @@ class Dbalbum extends CI_Model {
         return $this->db->count_all("media");
     }
 
-    public function get_all_media() {
+    public function get_all_media($limit, $start) {
+         $this->db->limit($limit, $start);
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('media');
         return $query->result();

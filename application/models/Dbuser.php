@@ -19,7 +19,6 @@ public function record_count_user() {
     public function get_selected_user($useremail) {
         $this->db->where('user_email', $useremail);
         $query = $this->db->get('user');
-
         return $query->result();
     }
     

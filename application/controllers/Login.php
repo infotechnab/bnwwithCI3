@@ -46,7 +46,7 @@ class Login extends CI_Controller {
             $this->session->sess_expiration = 60 * 60;
             $this->session->sess_expire_on_close = FALSE;
         }
-
+         $link = $this->input->post('requersUrl');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('username', 'Username', 'trim|required|callback_xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|callback_xss_clean');
@@ -58,7 +58,7 @@ class Login extends CI_Controller {
             $query = $this->dbmodel->validate();
             if ($query) {
                 // if the user's credentials validated...
-               $link = $this->input->post('requersUrl');
+              
                 $data = array(
                     'username' => $this->input->post('username'),
                     'admin_logged_in' => true,
@@ -96,6 +96,9 @@ class Login extends CI_Controller {
             $this->session->sess_destroy();
     //        $this->session->set_userdata(array('username' => '', 'admin_logged_in' => false)); by krishna
             redirect('login');
+        }else{
+             $this->session->sess_destroy();
+              redirect('login');
         }
     }
     
@@ -122,7 +125,7 @@ class Login extends CI_Controller {
         if(!empty($username)){
         foreach ($username as $dbemail) {
             $to = $dbemail->user_email;
-            $user = $dbemail->full_name;
+            $user = $dbemail->user_name;
         }
             $token = $this->getRandomString(10);
             $this->dbuser->update_emailed_user($to, $token);

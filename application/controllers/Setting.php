@@ -40,7 +40,7 @@ class Setting extends CI_Controller {
         if ($this->session->userdata('admin_logged_in')) {
 
             $config['upload_path'] = './content/uploads/images/';
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size'] = '20000';
             $config['max_width'] = '10000';
             $config['max_height'] = '10000';
@@ -60,12 +60,11 @@ class Setting extends CI_Controller {
                         $data['error'] =  $this->upload->display_errors('');
                       $this->load->view('bnw/setup/addHeader', $data);
                     } else {
-                        $this->upload->do_upload('file_name');
-//                $data = array('upload_data' => $this->upload->data('file'));
-
                 $headerTitle = $this->input->post('header_title');
-//                $headerLogo = $data['upload_data']['file_name'];
-                $headerLogo = $_FILES['file_name']['name'];
+                
+                $this->load->helper('inflector');
+$headerLogo = underscore($_FILES['file_name']['name']);
+$config['file_name'] = $headerLogo;
                 $headerDescription = $this->input->post('header_description');
                 $headerBgColor = null;
                 $this->dbsetting->update_design_header_setup($headerTitle, $headerLogo, $headerDescription, $headerBgColor);

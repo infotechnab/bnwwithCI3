@@ -77,7 +77,7 @@ class Sliders extends CI_Controller {
 
                 //if valid
 
-                $data = array('upload_data' => $this->upload->data('file'));
+                $data = array('upload_data' => $this->upload->data());
                 $slidename = $this->input->post('slide_name');
                 $slideimage = $data['upload_data']['file_name'];
                 $slidecontent = $this->input->post('slide_content');
@@ -168,7 +168,7 @@ class Sliders extends CI_Controller {
             // $config['max_width'] = '2000';
             // $config['max_height'] = '2000';
 
-            $this->load->library('upload', $config);
+             $this->load->library('upload', $config);
 
             $data['meta'] = $this->dbsetting->get_meta_data();
             $this->load->view('bnw/templates/header', $data);
@@ -195,9 +195,9 @@ class Sliders extends CI_Controller {
                     
                     //if valid
                     $id = $this->input->post('id');
-                     $this->upload->do_upload('file_name');
-                    $slideimage = $_FILES['file_name']['name'];
-
+                    $this->upload->do_upload('file_name');
+                   $data = array('upload_data' => $this->upload->data(''));
+                    $slideimage = $data['upload_data']['file_name'];
 
                     include_once 'imagemanipulator.php';
 
