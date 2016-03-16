@@ -63,8 +63,12 @@ class Setting extends CI_Controller {
                 $headerTitle = $this->input->post('header_title');
                 
                 $this->load->helper('inflector');
-$headerLogo = underscore($_FILES['file_name']['name']);
-$config['file_name'] = $headerLogo;
+                
+                $data = array('upload_data' => $this->upload->data());
+                $headerLogo = $data['upload_data']['file_name'];
+                
+                $config['file_name'] = $headerLogo;
+                
                 $headerDescription = $this->input->post('header_description');
                 $headerBgColor = null;
                 $this->dbsetting->update_design_header_setup($headerTitle, $headerLogo, $headerDescription, $headerBgColor);
@@ -236,10 +240,10 @@ $config['file_name'] = $headerLogo;
                     $description = $this->input->post('description');
                     $this->dbsetting->update_meta_data($url, $title, $keyword, $description, $favicone);
                 } else {
-                    $data = array('upload_data' => $this->upload->data('file'));
+                    $data = array('upload_data' => $this->upload->data());
 
                     $favicone = $data['upload_data']['file_name'];
-
+                    
                     $url = $this->input->post('url');
                     $title = $this->input->post('title');
                     $keyword = $this->input->post('keyword');
