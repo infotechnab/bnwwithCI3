@@ -110,8 +110,9 @@ class Login extends CI_Controller {
            $this->load->view('bnw/login/forgotPassword', $data);
             $this->load->view('bnw/templates/footer', $data);
         } else {
-            $this->session->set_flashdata('message', 'Incorrect Email');
-            redirect('login/index');
+             $this->session->sess_destroy();
+            $this->session->set_flashdata('message', 'Currently logged In');
+            redirect('login/forgotPassword');
         }
 
     }
@@ -173,13 +174,12 @@ class Login extends CI_Controller {
         }else{
             $email = NULL;
         }
-               
+        
         $data['meta'] = $this->dbsetting->get_meta_data();
         $data['query'] = $this->dbmodel->get_user_email($token, $email);
-
-        $this->load->view("bnw/templates/header", $data);
+        
          if (!empty($data['query'])) {
-                $this->load->view("bnw/login/resetPassword", $data);
+                $this->load->view('bnw/login/rePassword', $data);
             } else {
                 $this->load->view("bnw/login/tokenexpiremsg");
             } 
@@ -194,7 +194,9 @@ class Login extends CI_Controller {
         if(isset($_POST['email'])) {
             $email =  $_POST['email'];
         }else{$email =NULL;}
-        $data['query'] = $this->dbmodel->get_user_email($token, $email);
+        
+        $data['tokene'] = $token;
+       $data['query'] = $this->dbmodel->get_user_email($token, $email);
         
         $data['meta'] = $this->dbsetting->get_meta_data();
         $this->load->library('form_validation');
@@ -202,9 +204,14 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules('user_confirm_pass', 'Re-Password', 'required|callback_xss_clean|max_length[200]');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view("bnw/templates/header", $data);
-            $this->load->view("bnw/login/resetPassword", $data);
-            $this->load->view('bnw/templates/footer', $data);
+           
+            if (!empty($data['query'])) {
+                $this->load->view('bnw/login/rePassword', $data);
+            } else {
+                $this->load->view("bnw/login/tokenexpiremsg");
+            } 
+        $this->load->view('bnw/templates/footer', $data);
+        
         } else {
             $userPassword = $this->input->post('user_pass');
             $this->dbmodel->update_user_password($email, $userPassword);
