@@ -17,7 +17,7 @@
         <script src="<?php echo base_url(); ?>content/bnw/scripts/navTrack.js"></script>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() . 'content/bnw/styles/imgareaselect-animated.css'; ?>" />
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-         <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+          <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
  <?php if(isset($meta))
 {
      foreach ($meta as $data)

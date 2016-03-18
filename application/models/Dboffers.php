@@ -15,6 +15,11 @@ class Dboffers extends CI_Model {
         return $this->db->count_all_results();
     }
     
+    public function get_list_of_post() {
+        $query = $this->db->get('post');
+        return $query->result();
+    }
+    
     public function get_post_category() {
         
         $query = $this->db->query("SELECT DISTINCT post.post_category FROM post");
@@ -120,6 +125,16 @@ class Dboffers extends CI_Model {
             'post_category' => $selectCategory);
         $this->db->where('id', $id);
         $this->db->update('post', $data);
+    }
+    
+    public function update_navigation_on_post_update($post_id, $navigationName, $navigationLink, $navigationSlug) {
+        $this->load->database();
+        $data = array(
+            'navigation_name' => $navigationName,
+            'navigation_link' => $navigationLink,
+            'navigation_slug' => $navigationSlug);
+        $this->db->where('post_id', $post_id);
+        $this->db->update('navigation', $data);
     }
     
      function offerImgdelete($id = 0) {

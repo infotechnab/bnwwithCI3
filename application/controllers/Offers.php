@@ -166,7 +166,7 @@ if (file_exists($filename1)) {
                         $selectCategory = $this->input->post('selectCategory');
 
                         $this->dboffers->add_new_post($post_title, $post_content, $post_summary, $post_status, $image,$selectCategory);
-                        $this->session->set_flashdata('message', 'One offer added sucessfully');
+                        $this->session->set_flashdata('message', 'One post added sucessfully');
                         redirect('offers/posts');
                     }
                 } else {
@@ -191,7 +191,7 @@ if (file_exists($filename1)) {
                     
                     $this->dboffers->add_new_post($post_title, $post_content, $post_summary, $post_status, $image,$selectCategory);
                     // $this->dbmodel->add_new_post($post_title, $post_content, $post_author_id, $post_summary, $post_status, $post_comment_status, $post_tags, $post_category_id, $allowComment, $allowLike, $allowShare);
-                    $this->session->set_flashdata('message', 'One Offer added sucessfully');
+                    $this->session->set_flashdata('message', 'One post added sucessfully');
                     redirect('offers/posts');
                 }
             } else {
@@ -241,11 +241,21 @@ if (file_exists($filename2)) {
 } else {}
              }
                 
-            $this->dboffers->offerImgdelete($id);
-            $this->dboffers->deletepost($id);
-//             $this->session->set_flashdata('message', 'Data Deleted Sucessfully');
-//           redirect('offers/posts');
-            //$this->editpost($id);
+            //$this->dboffers->offerImgdelete($id);
+            
+            $menuNo = $this->dbdashboard->check_navigation_for_post($id);
+            if ($menuNo > 0) {
+                echo "This post contains Navigation item associated. So delete navigation item associated with it first.";
+//                $this->session->set_flashdata('message', 'This menu contains Navigation item associated. So to delete this menu delete navigation item associated with it first.');
+//                redirect('dashboard/addmenu');
+            } else {
+                $this->dboffers->offerImgdelete($id);
+                $this->dboffers->deletepost($id);
+//                $this->session->set_flashdata('message', 'Data Delete Sucessfully');
+//                redirect('dashboard/addmenu');
+            }
+//            $this->session->set_flashdata('message', 'Data Delete Sucessfully');
+//            redirect('page/pages');
         } else {
             redirect('login/index/?url=' . $url, 'refresh');
         }
@@ -349,7 +359,14 @@ if (file_exists($filename1)) {
 //                        $allowComment = $this->input->post('allow_comment');
 //                        $allowLike = $this->input->post('allow_like');
 //                        $allowShare = $this->input->post('allow_share');
+                        
+                        $navigationName = $post_title;
+                        $navigationLink = base_url() . "view/post/" . $id;
+                        $navigationSlug = preg_replace('/\s+/', '', $post_title);
+                        $post_id = $id;
+                        
                         $this->dboffers->update_post($id, $post_title, $post_content, $post_summary, $image,$selectCategory);
+                        $this->dboffers->update_navigation_on_post_update($post_id, $navigationName, $navigationLink, $navigationSlug);
                         $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                         redirect('offers/posts');
                     }
@@ -370,8 +387,14 @@ if (file_exists($filename1)) {
 //                    $allowComment = $this->input->post('allow_comment');
 //                    $allowLike = $this->input->post('allow_like');
 //                    $allowShare = $this->input->post('allow_share');
+                    $navigationName = $post_title;
+                        $navigationLink = base_url() . "view/post/" . $id;
+                        $navigationSlug = preg_replace('/\s+/', '', $post_title);
+                        $post_id = $id;
+                    
                     $selectCategory = $this->input->post('selectCategory');
                     $this->dboffers->update_post($id, $post_title, $post_content, $post_summary, $image,$selectCategory);
+                    $this->dboffers->update_navigation_on_post_update($post_id, $navigationName, $navigationLink, $navigationSlug);
                     $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                     $redirectPagination = $this->session->userdata("urlPagination");
                     redirect($redirectPagination);

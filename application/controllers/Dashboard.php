@@ -11,6 +11,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('dbdashboard');
         $this->load->model('dbsetting');
         $this->load->model('dbpage');
+        $this->load->model('dboffers');
         $this->load->helper('url');
         $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
@@ -153,6 +154,7 @@ class Dashboard extends CI_Controller {
             $data["query"] = $this->dbdashboard->get_navigation($config["per_navigation"], $navigation);
             $data["links"] = $this->pagination->create_links();
             $data['meta'] = $this->dbsetting->get_meta_data();
+            $data['listOfPost'] = $this->dboffers->get_list_of_post();
             $data["listOfPage"] = $this->dbpage->get_list_of_pages();
             $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
             $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
@@ -394,8 +396,10 @@ class Dashboard extends CI_Controller {
         $url = current_url();
         if ($this->session->userdata('admin_logged_in')) {
             $data['meta'] = $this->dbsetting->get_meta_data();
+            $listOfPost = $this->dboffers->get_list_of_post();
             $listOfPage = $this->dbpage->get_list_of_pages();
             $listOfMenu = $this->dbdashboard->get_list_of_menu();
+            $data['listOfPost'] = $this->dboffers->get_list_of_post();
             $data["listOfPage"] = $this->dbpage->get_list_of_pages();
             $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
             $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
@@ -437,7 +441,8 @@ class Dashboard extends CI_Controller {
                             $navigation_slug = preg_replace('/\s+/', '', $v);
                         }
                         $category_id =NULL;
-                        $this->dbdashboard->add_new_navigation_item($navigation_name, $navigation_link, $parent_id, $navigation_type, $navigation_slug, $menuSelected, $page_id, $category_id);
+                        $post_id = NULL;
+                        $this->dbdashboard->add_new_navigation_item($navigation_name, $navigation_link, $parent_id, $navigation_type, $navigation_slug, $menuSelected, $page_id, $category_id, $post_id);
                     }
                     $this->session->set_flashdata("message", "Navigation Added Successfully.");
                     redirect('dashboard/navigation');
@@ -452,6 +457,7 @@ class Dashboard extends CI_Controller {
                     $data["query"] = $this->dbdashboard->get_navigation($config["per_navigation"], $navigation);
                     $data["links"] = $this->pagination->create_links();
                     $data['meta'] = $this->dbsetting->get_meta_data();
+                    $data['listOfPost'] = $this->dboffers->get_list_of_post();
                     $data["listOfPage"] = $this->dbpage->get_list_of_pages();
                     $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
                     $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
@@ -464,6 +470,99 @@ class Dashboard extends CI_Controller {
                 }
             } else {
                 $data['meta'] = $this->dbsetting->get_meta_data();
+                $data['listOfPost'] = $this->dboffers->get_list_of_post();
+                $data["listOfPage"] = $this->dbpage->get_list_of_pages();
+                $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
+                $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
+                $this->load->view('bnw/templates/header', $data);
+                $this->load->view('bnw/templates/menu', $data);
+                $this->load->view('bnw/navigation/listOfItems', $data);
+            }
+        } else {
+            redirect('login/index/?url=' . $url, 'refresh');
+        }
+    }
+    
+    
+     public function addPostForNavigation() {
+        $url = current_url();
+        if ($this->session->userdata('admin_logged_in')) {
+            $data['meta'] = $this->dbsetting->get_meta_data();
+            $listOfPost = $this->dboffers->get_list_of_post();
+            $listOfPage = $this->dbpage->get_list_of_pages();
+            $listOfMenu = $this->dbdashboard->get_list_of_menu();
+            $data['listOfPost'] = $this->dboffers->get_list_of_post();
+            $data["listOfPage"] = $this->dbpage->get_list_of_pages();
+            $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
+            $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
+            $listOfNavigation = $this->dbdashboard->get_list_of_navigation();
+            $data["listOfNavigation"] = $this->dbdashboard->get_list_of_navigation();
+
+            $listOfSelectedMenu = Array();
+
+            if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+                foreach ($listOfPost as $myData) {
+                    if (isset($_POST[preg_replace('/\s+/', '', $myData->post_title)])) {
+                        array_push($listOfSelectedMenu, array($myData->id => $myData->post_title));
+                    }
+                }
+                
+                $menuSelected = $_POST['departments'];
+
+                if ($menuSelected == !"0") {
+                    $menu_info = $this->dbdashboard->get_menu_info($menuSelected);
+                    foreach ($menu_info as $id) {
+                        $menu_id = $id->id;
+                    }
+                    $navigationName = $_POST['jobs'];
+                    if ($navigationName == 'Make Parent')
+                        $parent_id = '0';
+                    else {
+                        $post_category_info = $this->dbdashboard->get_navigation_info($navigationName);
+                        foreach ($post_category_info as $pid) {
+                            $parent_id = $pid->id;
+                        }
+                    }
+
+                    foreach ($listOfSelectedMenu as $myData) {
+                        foreach ($myData as $k => $v) {
+                            $navigation_type = "post";
+                            $navigation_name = $v;
+                            $post_id = $k;
+                            $navigation_link = base_url() . "view/" . $navigation_type . "/" . $k;
+                            $navigation_slug = preg_replace('/\s+/', '', $v);
+                        }
+                        $category_id =NULL;
+                        $page_id = NULL;
+                        $this->dbdashboard->add_new_navigation_item($navigation_name, $navigation_link, $parent_id, $navigation_type, $navigation_slug, $menuSelected, $page_id, $category_id, $post_id);
+                    }
+                    $this->session->set_flashdata("message", "Navigation Added Successfully.");
+                    redirect('dashboard/navigation');
+                } else {
+                    $data['token_error'] = ' Select at least one menu list!';
+                    $config["total_rows"] = $this->dbdashboard->record_count_navigation();
+
+                    $config["per_navigation"] = 6;
+                    $this->pagination->initialize($config);
+                    $navigation = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+                    $data["query"] = $this->dbdashboard->get_navigation($config["per_navigation"], $navigation);
+                    $data["links"] = $this->pagination->create_links();
+                    $data['meta'] = $this->dbsetting->get_meta_data();
+                    $data['listOfPost'] = $this->dboffers->get_list_of_post();
+                    $data["listOfPage"] = $this->dbpage->get_list_of_pages();
+                    $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
+                    $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
+                    $data["listOfNavigation"] = $this->dbdashboard->get_list_of_navigation();
+                    $data["listOfNavigationID"] = $this->dbdashboard->get_list_of_navigationID();
+
+                    $this->load->view('bnw/templates/header', $data);
+                    $this->load->view('bnw/templates/menu');
+                    $this->load->view('bnw/navigation/listOfItems', $data);
+                }
+            } else {
+                $data['meta'] = $this->dbsetting->get_meta_data();
+                $data['listOfPost'] = $this->dboffers->get_list_of_post();
                 $data["listOfPage"] = $this->dbpage->get_list_of_pages();
                 $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
                 $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
@@ -482,8 +581,10 @@ class Dashboard extends CI_Controller {
         $url = current_url();
         if ($this->session->userdata('admin_logged_in')) {
             $data['meta'] = $this->dbsetting->get_meta_data();
+            $listOfPost = $this->dboffers->get_list_of_post();
             $listOfPage = $this->dbpage->get_list_of_pages();
             $listOfMenu = $this->dbdashboard->get_list_of_menu();
+            $data['listOfPost'] = $this->dboffers->get_list_of_post();
             $data["listOfPage"] = $this->dbpage->get_list_of_pages();
             $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
             $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
@@ -532,7 +633,8 @@ class Dashboard extends CI_Controller {
                             $category_id = $k;
                         }
                         $page_id = null;
-                        $this->dbdashboard->add_new_navigation_item($navigation_name, $navigation_link, $parent_id, $navigation_type, $navigation_slug, $menuSelected,$page_id, $category_id);
+                        $post_id = NULL;
+                        $this->dbdashboard->add_new_navigation_item($navigation_name, $navigation_link, $parent_id, $navigation_type, $navigation_slug, $menuSelected,$page_id, $category_id, $post_id);
                     }
                 $this->session->set_flashdata("message", "Navigation Added Successfully.");
                     redirect('dashboard/navigation');
@@ -548,6 +650,7 @@ class Dashboard extends CI_Controller {
                     $data["query"] = $this->dbdashboard->get_navigation($config["per_navigation"], $navigation);
                     $data["links"] = $this->pagination->create_links();
                     $data['meta'] = $this->dbsetting->get_meta_data();
+                    $data['listOfPost'] = $this->dboffers->get_list_of_post();
                     $data["listOfPage"] = $this->dbpage->get_list_of_pages();
                     $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
                     $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
@@ -560,6 +663,7 @@ class Dashboard extends CI_Controller {
                 }
             } else {
                 $data['meta'] = $this->dbsetting->get_meta_data();
+                $data['listOfPost'] = $this->dboffers->get_list_of_post();
                 $data["listOfPage"] = $this->dbpage->get_list_of_pages();
                 $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
                 $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
@@ -577,6 +681,7 @@ class Dashboard extends CI_Controller {
         if ($this->session->userdata('admin_logged_in')) {
             $data['meta'] = $this->dbsetting->get_meta_data();
             $listOfMenu = $this->dbdashboard->get_list_of_menu();
+            $data['listOfPost'] = $this->dboffers->get_list_of_post();
             $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();
             $data["listOfPage"] = $this->dbpage->get_list_of_pages();
             $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
@@ -632,6 +737,7 @@ class Dashboard extends CI_Controller {
                     $data["query"] = $this->dbdashboard->get_navigation($config["per_navigation"], $navigation);
                     $data["links"] = $this->pagination->create_links();
                     $data['meta'] = $this->dbsetting->get_meta_data();
+                    $data['listOfPost'] = $this->dboffers->get_list_of_post();
                     $data["listOfPage"] = $this->dbpage->get_list_of_pages();
                     $data["listOfCategory"] = $this->dbdashboard->get_list_of_category();
                     $data["listOfMenu"] = $this->dbdashboard->get_list_of_menu();

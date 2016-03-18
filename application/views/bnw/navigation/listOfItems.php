@@ -80,6 +80,49 @@
            
       <!-- Top left div for choosing page, menu and parent is closed -->       
             
+      
+      <!-- here goes the code to choose post for navigation-->
+      <div class="left">
+       
+        <div id="navigationLeftUp"> 
+    
+    <h3>List of all posts</h3>
+        </div>
+    <?php echo form_open_multipart('dashboard/addPostForNavigation', array('id' => 'search', 'name'=>'search'));?> 
+    <div id="navigationLeftMiddle">
+    <ul>
+        
+      <?php    
+        if(isset($listOfPost)){
+            foreach ($listOfPost as $postdata){
+            ?>
+
+        <li><input type="checkbox" name="<?php echo $str = htmlentities(preg_replace('/\s+/', '', $postdata->post_title)); ?>" value="<?php echo htmlentities($postdata->post_title); ?>"/><?php echo $postdata->post_title; ?></li>
+          <?php    
+            }
+        }
+    ?>
+    </ul> 
+    </div>
+    
+    <div id="navigationLeftDown">
+     <select style="width: 110px" name="departments" id="departments">
+         <option value ="0">Select Menu</option>
+         <?php foreach($listOfMenu as $menu) { ?>
+        <option value ="<?php echo $menu->id; ?>"><?php echo $menu->menu_name; ?></option>
+         <?php } ?>
+    </select>
+           
+        <select style="width: 150px" name="jobs" id="jobs" class="jobs">
+        <option>Make Parent</option>
+    </select>      
+            <input type="submit" value="Add">
+        
+    </div>
+        <?php echo form_close();?>
+    </div>
+      
+      <!-- adding post to navigation ends here -->
    
     <div class="left">
         <div id="navigationLeftUp">    
