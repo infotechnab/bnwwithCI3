@@ -25,7 +25,7 @@ class Dbevent extends CI_Model {
     }
     
      
-     function update_event($id, $title, $content, $location, $image, $start_dateTime, $end_dateTime, $type, $updatedOn) {
+     function update_event($id, $title, $content, $location, $image, $start_dateTime, $end_dateTime, $type, $updatedOn, $seoTitle) {
         // die($id);
         $data = array(
             'title' => $title,
@@ -35,12 +35,13 @@ class Dbevent extends CI_Model {
             'start_date' => $start_dateTime,
             'end_date' => $end_dateTime,
             'last_modified_date' => $updatedOn,
-            'type'=>$type);
+            'type'=>$type,
+            'seo_title' => $seoTitle);
         $this->db->where('id', $id);
         $this->db->update('events', $data);
     }
     
-    function add_event($name, $detail, $location, $start_dateTime,$end_dateTime, $insert_date, $image, $type){
+    function add_event($name, $detail, $location, $start_dateTime,$end_dateTime, $insert_date, $image, $type, $seoTitle){
         $data = array(
             'title' => $name,
             'details' => $detail,
@@ -49,11 +50,12 @@ class Dbevent extends CI_Model {
             'end_date' => $end_dateTime,
              'insert_date' => $insert_date,
             'image' => $image,
-            'type' => $type);
+            'type' => $type,
+            'seo_title' => $seoTitle);
         $this->db->insert('events', $data);
     }
     
-    function add_news($name, $detail, $location, $insert_date, $image, $type)
+    function add_news($name, $detail, $location, $insert_date, $image, $type, $seoTitle)
     {
         $data = array(
             'title' => $name,
@@ -61,8 +63,8 @@ class Dbevent extends CI_Model {
             'location' => $location,
             'insert_date' => $insert_date,
             'image' => $image,
-            'type' => $type
-                );
+            'type' => $type,
+            'seo_title' => $seoTitle);
         $this->db->insert('events', $data);
     }
     

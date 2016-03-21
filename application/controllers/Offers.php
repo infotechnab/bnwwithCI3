@@ -13,6 +13,7 @@ class Offers extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
+        $this->load->helper('seourl_helper');
     }
 
     public function index() {
@@ -164,8 +165,8 @@ if (file_exists($filename1)) {
                         $post_summary = substr("$string", 0, 100);
                         $post_status = $this->input->post('post_status');
                         $selectCategory = $this->input->post('selectCategory');
-
-                        $this->dboffers->add_new_post($post_title, $post_content, $post_summary, $post_status, $image,$selectCategory);
+                        $seoTitle = seoUrl($post_title);
+                        $this->dboffers->add_new_post($post_title, $post_content, $post_summary, $post_status, $image,$selectCategory, $seoTitle);
                         $this->session->set_flashdata('message', 'One post added sucessfully');
                         redirect('offers/posts');
                     }
@@ -188,8 +189,8 @@ if (file_exists($filename1)) {
                     $allowLike = $this->input->post('allow_like');
                     $allowShare = $this->input->post('allow_share');
                     $selectCategory = $this->input->post('selectCategory');
-                    
-                    $this->dboffers->add_new_post($post_title, $post_content, $post_summary, $post_status, $image,$selectCategory);
+                    $seoTitle = seoUrl($post_title);
+                    $this->dboffers->add_new_post($post_title, $post_content, $post_summary, $post_status, $image,$selectCategory, $seoTitle);
                     // $this->dbmodel->add_new_post($post_title, $post_content, $post_author_id, $post_summary, $post_status, $post_comment_status, $post_tags, $post_category_id, $allowComment, $allowLike, $allowShare);
                     $this->session->set_flashdata('message', 'One post added sucessfully');
                     redirect('offers/posts');
@@ -364,8 +365,8 @@ if (file_exists($filename1)) {
                         $navigationLink = base_url() . "view/post/" . $id;
                         $navigationSlug = preg_replace('/\s+/', '', $post_title);
                         $post_id = $id;
-                        
-                        $this->dboffers->update_post($id, $post_title, $post_content, $post_summary, $image,$selectCategory);
+                        $seoTitle = seoUrl($post_title);
+                        $this->dboffers->update_post($id, $post_title, $post_content, $post_summary, $image,$selectCategory, $seoTitle);
                         $this->dboffers->update_navigation_on_post_update($post_id, $navigationName, $navigationLink, $navigationSlug);
                         $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                         redirect('offers/posts');
@@ -391,9 +392,9 @@ if (file_exists($filename1)) {
                         $navigationLink = base_url() . "view/post/" . $id;
                         $navigationSlug = preg_replace('/\s+/', '', $post_title);
                         $post_id = $id;
-                    
+                    $seoTitle = seoUrl($post_title);
                     $selectCategory = $this->input->post('selectCategory');
-                    $this->dboffers->update_post($id, $post_title, $post_content, $post_summary, $image,$selectCategory);
+                    $this->dboffers->update_post($id, $post_title, $post_content, $post_summary, $image,$selectCategory, $seoTitle);
                     $this->dboffers->update_navigation_on_post_update($post_id, $navigationName, $navigationLink, $navigationSlug);
                     $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                     $redirectPagination = $this->session->userdata("urlPagination");

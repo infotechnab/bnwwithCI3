@@ -14,6 +14,7 @@ class Page extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
+        $this->load->helper('seourl_helper');
     }
 
     public function index() {
@@ -145,8 +146,9 @@ class Page extends CI_Controller {
                         $allowComment = $this->input->post('allow_comment');
                         $allowLike = $this->input->post('allow_like');
                         $allowShare = $this->input->post('allow_share');
+                        $seoTitle = seoUrl($pageName);
 
-                        $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image);
+                        $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $seoTitle);
                         $this->session->set_flashdata('message', 'One pages added sucessfully');
                         redirect('page/pages');
                     }
@@ -172,7 +174,8 @@ class Page extends CI_Controller {
                     }else{
                         $allowShare=0;
                     }
-                    $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image);
+                    $seoTitle = seoUrl($pageName);
+                    $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $seoTitle);
                     $this->session->set_flashdata('message', 'One pages added sucessfully');
                     redirect('page/pages');
                 }
@@ -297,7 +300,8 @@ if (file_exists($filename1)) {
                         $navigationLink = base_url() . "view/page/" . $id;
                         $navigationSlug = preg_replace('/\s+/', '', $pageName);
                         $pageid = $id;
-                        $this->dbpage->update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image);
+                        $seoTitle = seoUrl($pageName);
+                        $this->dbpage->update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $seoTitle);
                         $this->dbpage->update_navigation_on_page_update($pageid, $navigationName, $navigationLink, $navigationSlug);
                         $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                         redirect('page/pages');
@@ -325,7 +329,8 @@ if (file_exists($filename1)) {
                         $navigationSlug = preg_replace('/\s+/', '', $pageName);
                         $pageid = $id;
                         $past_image = $this->input->post('imageName');
-                    $this->dbpage->update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $past_image);
+                        $seoTitle = seoUrl($pageName);
+                        $this->dbpage->update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $past_image, $seoTitle);
                         $this->dbpage->update_navigation_on_page_update($pageid, $navigationName, $navigationLink, $navigationSlug);
                         $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                         $redirectPagination = $this->session->userdata("urlPagination");

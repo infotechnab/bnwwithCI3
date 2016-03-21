@@ -83,7 +83,7 @@ class Dboffers extends CI_Model {
         }
     }
 
-    function add_new_post($post_title, $post_content, $post_summary, $post_status, $image, $selectCategory) {
+    function add_new_post($post_title, $post_content, $post_summary, $post_status, $image, $selectCategory, $seoTitle) {
        
         $data = array(
             'post_title' => $post_title,
@@ -91,7 +91,8 @@ class Dboffers extends CI_Model {
             'post_summary' => $post_summary,
             'post_status' => $post_status,
             'image' => $image,
-            'post_category' => $selectCategory);
+            'post_category' => $selectCategory,
+            'seo_title' => $seoTitle);
         $this->db->insert('post', $data);
     }
 
@@ -114,7 +115,7 @@ class Dboffers extends CI_Model {
 //         $this->db->insert('post', $data);
 //    }
 
-    public function update_post($id, $post_title, $post_content, $post_summary, $image, $selectCategory) {
+    public function update_post($id, $post_title, $post_content, $post_summary, $image, $selectCategory, $seoTitle) {
         $this->load->database();
         $data = array
             (
@@ -122,7 +123,8 @@ class Dboffers extends CI_Model {
             'post_content' => $post_content,
             'post_summary' => $post_summary,
             'image' => $image,
-            'post_category' => $selectCategory);
+            'post_category' => $selectCategory,
+            'seo_title' => $seoTitle);
         $this->db->where('id', $id);
         $this->db->update('post', $data);
     }
