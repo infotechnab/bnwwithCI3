@@ -90,4 +90,14 @@ class Dbsetting extends CI_Model {
             }
         }
     }
+    
+    public function update_navigation_url($prevUrl, $url)
+    {
+         $query=$this->db->query("UPDATE navigation
+SET navigation_link = REPLACE(navigation_link, '$prevUrl', '$url')");
+         
+    }
+    
+    
+    
 }

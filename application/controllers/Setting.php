@@ -208,7 +208,7 @@ class Setting extends CI_Controller {
     public function setupupdate() {
         $url = current_url();
         if ($this->session->userdata('admin_logged_in')) {
-
+            $metadata = $this->dbsetting->get_meta_data();
             $config['upload_path'] = './content/uploads/images/';
             $config['allowed_types'] = 'gif|jpg|png|ico';
             $config['max_size'] = '500';
@@ -239,6 +239,17 @@ class Setting extends CI_Controller {
                     $keyword = $this->input->post('keyword');
                     $description = $this->input->post('description');
                     $this->dbsetting->update_meta_data($url, $title, $keyword, $description, $favicone);
+                    
+                    if(!empty($metadata)){
+                    $i=0;
+    foreach ($metadata as $datam)
+    {        
+       $meta_data[$i] = $datam->value;
+       $i++;      
+    }
+    $prevUrl = $meta_data[0];
+                    $this->dbsetting->update_navigation_url($prevUrl, $url);
+                    }
                 } else {
                     $data = array('upload_data' => $this->upload->data());
 
@@ -249,6 +260,16 @@ class Setting extends CI_Controller {
                     $keyword = $this->input->post('keyword');
                     $description = $this->input->post('description');
                     $this->dbsetting->update_meta_data($url, $title, $keyword, $description, $favicone);
+                    if(!empty($metadata)){
+                    $i=0;
+    foreach ($metadata as $datam)
+    {        
+       $meta_data[$i] = $datam->value;
+       $i++;      
+    }
+    $prevUrl = $meta_data[0];
+                    $this->dbsetting->update_navigation_url($prevUrl, $url);
+                    }
                 }
                 $this->session->set_flashdata("message","Page setup Updated.");
                 redirect('setting/setup');
