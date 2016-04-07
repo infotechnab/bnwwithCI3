@@ -50,11 +50,11 @@ class Dbpage extends CI_Model {
         return $query->result();
     }
 
-    public function add_new_page($name, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allow_comment, $allow_like, $allow_share,$image, $seoTitle) {
+    public function add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $template, $seoTitle){
         $dt = new DateTime();
         $insert_date = $dt->format('Y-m-d H:i:s');
         $data = array(
-            'page_name' => $name,
+            'page_name' => $pageName,
             'page_content' => $body,
             'page_author_id' => $page_author_id,
             'page_summary' => $summary,
@@ -62,9 +62,9 @@ class Dbpage extends CI_Model {
             'page_order' => $order,
             'page_type' => $type,
             'page_tags' => $tags,
-            'allow_comment' => $allow_comment,
-            'allow_like' => $allow_like,
-            'allow_share' => $allow_share,
+            'allow_comment' => $allowComment,
+            'allow_like' => $allowLike,
+            'allow_share' => $allowShare,
             'page_modifed_date' => $insert_date,
             'images' => $image,
             'seo_title' => $seoTitle
@@ -90,12 +90,12 @@ class Dbpage extends CI_Model {
         return $page->result();
     }
 
-     public function update_page($id, $name, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allow_comment, $allow_like, $allow_share,$image, $seoTitle) {
+     public function update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $template, $seoTitle){
          $dt = new DateTime();
         $insert_date = $dt->format('Y-m-d H:i:s');
         $data = array
             (
-            'page_name' => $name,
+            'page_name' => $pageName,
             'page_content' => $body,
             'page_author_id' => $page_author_id,
             'page_summary' => $summary,
@@ -103,9 +103,9 @@ class Dbpage extends CI_Model {
             'page_order' => $order,
             'page_type' => $type,
             'page_tags' => $tags,
-            'allow_comment' => $allow_comment,
-            'allow_like' => $allow_like,
-            'allow_share' => $allow_share,
+            'allow_comment' => $allowComment,
+            'allow_like' => $allowLike,
+            'allow_share' => $allowShare,
             'page_modifed_date' => $insert_date,
             'images' => $image,
             'seo_title' => $seoTitle);

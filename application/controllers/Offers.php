@@ -13,7 +13,7 @@ class Offers extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
-        $this->load->helper('seourl_helper');
+         $this->load->helper('seourl_helper');
     }
 
     public function index() {
@@ -110,7 +110,7 @@ class Offers extends CI_Controller {
 //            }
             //set validation rules
             $this->form_validation->set_rules('post_title', 'Title', 'required|callback_xss_clean|max_length[200]');
-            $this->form_validation->set_rules('post_content', 'Body', 'required|callback_xss_clean');
+            $this->form_validation->set_rules('post_content', 'Body', 'required');
 
 
 
@@ -165,7 +165,13 @@ if (file_exists($filename1)) {
                         $post_summary = substr("$string", 0, 100);
                         $post_status = $this->input->post('post_status');
                         $selectCategory = $this->input->post('selectCategory');
-                        $seoTitle = seoUrl($post_title);
+                        $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'post',
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($post_title);                      
+
                         $this->dboffers->add_new_post($post_title, $post_content, $post_summary, $post_status, $image,$selectCategory, $seoTitle);
                         $this->session->set_flashdata('message', 'One post added sucessfully');
                         redirect('offers/posts');
@@ -189,7 +195,12 @@ if (file_exists($filename1)) {
                     $allowLike = $this->input->post('allow_like');
                     $allowShare = $this->input->post('allow_share');
                     $selectCategory = $this->input->post('selectCategory');
-                    $seoTitle = seoUrl($post_title);
+                    $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'post',
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($post_title);
                     $this->dboffers->add_new_post($post_title, $post_content, $post_summary, $post_status, $image,$selectCategory, $seoTitle);
                     // $this->dbmodel->add_new_post($post_title, $post_content, $post_author_id, $post_summary, $post_status, $post_comment_status, $post_tags, $post_category_id, $allowComment, $allowLike, $allowShare);
                     $this->session->set_flashdata('message', 'One post added sucessfully');
@@ -297,7 +308,7 @@ if (file_exists($filename2)) {
 //            }
             //set validation rules
             $this->form_validation->set_rules('post_title', 'Page Name', 'required|callback_xss_clean|max_length[200]');
-            $this->form_validation->set_rules('post_content', 'Body', 'required|callback_xss_clean');
+            $this->form_validation->set_rules('post_content', 'Body', 'required');
 
 
             if (($this->form_validation->run() == TRUE)) {
@@ -360,12 +371,18 @@ if (file_exists($filename1)) {
 //                        $allowComment = $this->input->post('allow_comment');
 //                        $allowLike = $this->input->post('allow_like');
 //                        $allowShare = $this->input->post('allow_share');
-                        
+                        $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'post',
+                             'id'=> 'id'
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($post_title, $id);
                         $navigationName = $post_title;
-                        $navigationLink = base_url() . "view/post/" . $id;
-                        $navigationSlug = preg_replace('/\s+/', '', $post_title);
+                        $navigationLink = base_url() . "post/" . $seoTitle;
+                        $navigationSlug = $seoTitle;
                         $post_id = $id;
-                        $seoTitle = seoUrl($post_title);
+                        
                         $this->dboffers->update_post($id, $post_title, $post_content, $post_summary, $image,$selectCategory, $seoTitle);
                         $this->dboffers->update_navigation_on_post_update($post_id, $navigationName, $navigationLink, $navigationSlug);
                         $this->session->set_flashdata('message', 'Data Modified Sucessfully');
@@ -388,11 +405,18 @@ if (file_exists($filename1)) {
 //                    $allowComment = $this->input->post('allow_comment');
 //                    $allowLike = $this->input->post('allow_like');
 //                    $allowShare = $this->input->post('allow_share');
+                    $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'post',
+                             'id'=> 'id'
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($post_title, $id);
                     $navigationName = $post_title;
-                        $navigationLink = base_url() . "view/post/" . $id;
-                        $navigationSlug = preg_replace('/\s+/', '', $post_title);
+                        $navigationLink = base_url() . "post/" . $seoTitle;
+                        $navigationSlug = $seoTitle;
                         $post_id = $id;
-                    $seoTitle = seoUrl($post_title);
+                    
                     $selectCategory = $this->input->post('selectCategory');
                     $this->dboffers->update_post($id, $post_title, $post_content, $post_summary, $image,$selectCategory, $seoTitle);
                     $this->dboffers->update_navigation_on_post_update($post_id, $navigationName, $navigationLink, $navigationSlug);

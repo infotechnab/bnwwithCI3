@@ -15,7 +15,6 @@ class Events extends CI_Controller {
         $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
         $this->load->helper('seourl_helper');
-       
     }
 
     public function index() {
@@ -165,7 +164,13 @@ if (file_exists($filename1)) {
                         $end_dateTime = $end_date . ' ' . $end_hour . ':' . $end_min . ':' . $sec;
                         date_default_timezone_set('Asia/Kathmandu');
                         $updatedOn = date('Y-m-d');
-                        $seoTitle = seoUrl($title);
+                        $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'events',
+                             'id'=> 'id'
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($title, $id);
                         $this->dbevent->update_event($id, $title, $content, $location, $image, $start_dateTime, $end_dateTime, $type, $updatedOn, $seoTitle);
                         $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                         $redirectPagination = $this->session->userdata("urlPagination");
@@ -191,7 +196,13 @@ if (file_exists($filename1)) {
                         $end_dateTime = $end_date . ' ' . $end_hour . ':' . $end_min . ':' . $sec;
                     date_default_timezone_set('Asia/Kathmandu');
                     $updatedOn = date('Y-m-d');
-                     $seoTitle = seoUrl($title);
+                    $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'events',
+                         'id'=> 'id'
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($title, $id);
                     $this->dbevent->update_event($id, $title, $content, $location, $image, $start_dateTime, $end_dateTime, $type, $updatedOn, $seoTitle);
                     $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                     $redirectPagination = $this->session->userdata("urlPagination");
@@ -287,7 +298,12 @@ if (file_exists($filename1)) {
                         $end_dateTime = $end_date . ' ' . $end_hour . ':' . $end_min . ':' . $sec;
                         $dt = new DateTime();
                         $insert_date = $dt->format('Y-m-d H:i:s');
-                        $seoTitle = seoUrl($name);
+                        $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'events',
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($name);
                       if($type == "news") {
                         $this->dbevent->add_news($name, $detail, $location, $insert_date, $image, $type, $seoTitle);
                         $this->session->set_flashdata('message', 'One news added sucessfully');
@@ -320,7 +336,12 @@ if (file_exists($filename1)) {
                         $end_dateTime = $end_date . ' ' . $end_hour . ':' . $end_min . ':' . $sec;
                     $dt = new DateTime();
                     $insert_date = $dt->format('Y-m-d H:i:s');
-                     $seoTitle = seoUrl($name);
+                    $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'events',
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($name);
                       if($type == "news") {
                         $this->dbevent->add_news($name, $detail, $location, $insert_date, $image, $type, $seoTitle);
                         $this->session->set_flashdata('message', 'One news added sucessfully');

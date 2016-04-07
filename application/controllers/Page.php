@@ -14,7 +14,7 @@ class Page extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper(array('form', 'url'));
         $this->load->library('pagination');
-        $this->load->helper('seourl_helper');
+         $this->load->helper('seourl_helper');
     }
 
     public function index() {
@@ -82,7 +82,7 @@ class Page extends CI_Controller {
             $this->load->library(array('form_validation', 'session'));
 
             $this->form_validation->set_rules('page_name', 'Title', 'required|callback_xss_clean|max_length[200]');
-            $this->form_validation->set_rules('page_content', 'Body', 'required|callback_xss_clean');
+            $this->form_validation->set_rules('page_content', 'Body', 'required');
 
 
             if (($this->form_validation->run() == TRUE)) {
@@ -146,9 +146,16 @@ class Page extends CI_Controller {
                         $allowComment = $this->input->post('allow_comment');
                         $allowLike = $this->input->post('allow_like');
                         $allowShare = $this->input->post('allow_share');
-                        $seoTitle = seoUrl($pageName);
-
-                        $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $seoTitle);
+                        $template = $this->input->post('page_template');
+                        $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'page',
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($pageName);
+                        var_dump($seoTitle);
+                        die;
+                        $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $template, $seoTitle);
                         $this->session->set_flashdata('message', 'One pages added sucessfully');
                         redirect('page/pages');
                     }
@@ -168,14 +175,21 @@ class Page extends CI_Controller {
                     $tags = $this->input->post('page_tags');
                     $allowComment = $this->input->post('allow_comment');
                     $allowLike = $this->input->post('allow_like');
+                    $template = $this->input->post('page_template');
                     
                     if(isset($_POST["allow_share"])){
                         $allowShare = $this->input->post('allow_share');
                     }else{
                         $allowShare=0;
                     }
-                    $seoTitle = seoUrl($pageName);
-                    $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $seoTitle);
+                    $config = array(
+                        'field' => 'seo_title',
+                        'table' => 'page',
+                    );
+                    $this->load->library('slug', $config);
+                    $seoTitle = $this->slug->create_uri($pageName);
+                    
+                    $this->dbpage->add_new_page($pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $template, $seoTitle);
                     $this->session->set_flashdata('message', 'One pages added sucessfully');
                     redirect('page/pages');
                 }
@@ -229,7 +243,7 @@ class Page extends CI_Controller {
            $id = $this->input->post('id');
                         $data['query'] = $this->dbpage->findpage($id);
             $this->form_validation->set_rules('page_name', 'Page Name', 'required|callback_xss_clean|max_length[200]');
-            $this->form_validation->set_rules('page_content', 'Body', 'required|callback_xss_clean');
+            $this->form_validation->set_rules('page_content', 'Body', 'required');
 
 
             if (($this->form_validation->run() == TRUE)) {
@@ -296,15 +310,23 @@ if (file_exists($filename1)) {
                         $allowComment = $this->input->post('allow_comment');
                         $allowLike = $this->input->post('allow_like');
                         $allowShare = $this->input->post('allow_share');
+                        $template = $this->input->post('page_template');
+                        $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'page',
+                            'id'=> 'id'
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($pageName, $id);
                         $navigationName = $pageName;
-                        $navigationLink = base_url() . "view/page/" . $id;
-                        $navigationSlug = preg_replace('/\s+/', '', $pageName);
+                        $navigationLink = base_url() . "page/" . $seoTitle;
+                        $navigationSlug = $seoTitle;
                         $pageid = $id;
-                        $seoTitle = seoUrl($pageName);
-                        $this->dbpage->update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $seoTitle);
+                        $this->dbpage->update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $image, $template, $seoTitle);
                         $this->dbpage->update_navigation_on_page_update($pageid, $navigationName, $navigationLink, $navigationSlug);
                         $this->session->set_flashdata('message', 'Data Modified Sucessfully');
-                        redirect('page/pages');
+                        $redirectPagination = $this->session->userdata("urlPagination");
+                        redirect($redirectPagination);
                     }
                 } else {
                     $id = $this->input->post('id');
@@ -324,13 +346,20 @@ if (file_exists($filename1)) {
                         $allowComment = $this->input->post('allow_comment');
                         $allowLike = $this->input->post('allow_like');
                         $allowShare = $this->input->post('allow_share');
+                        $template = $this->input->post('page_template');
+                        $config = array(
+                            'field' => 'seo_title',
+                            'table' => 'page',
+                            'id'=> 'id'
+                        );
+                        $this->load->library('slug', $config);
+                        $seoTitle = $this->slug->create_uri($pageName, $id);
                         $navigationName = $pageName;
-                         $navigationLink = base_url() . "view/page/" . $id;
-                        $navigationSlug = preg_replace('/\s+/', '', $pageName);
+                        $navigationLink = base_url() . "page/" . $seoTitle;
+                        $navigationSlug = $seoTitle;
                         $pageid = $id;
                         $past_image = $this->input->post('imageName');
-                        $seoTitle = seoUrl($pageName);
-                        $this->dbpage->update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $past_image, $seoTitle);
+                        $this->dbpage->update_page($id, $pageName, $body, $page_author_id, $summary, $status, $order, $type, $tags, $allowComment, $allowLike, $allowShare, $past_image, $template, $seoTitle);
                         $this->dbpage->update_navigation_on_page_update($pageid, $navigationName, $navigationLink, $navigationSlug);
                         $this->session->set_flashdata('message', 'Data Modified Sucessfully');
                         $redirectPagination = $this->session->userdata("urlPagination");
