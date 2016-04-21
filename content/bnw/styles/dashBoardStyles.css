@@ -664,7 +664,6 @@ border-collapse:collapse;
 }
 
 #imagetitle
-
 {
     min-width: 80px;
     margin: 5px;
@@ -679,9 +678,7 @@ border-collapse:collapse;
     height: 160px;
     text-align: center;
 }
-
 /*for navigation*/
-
 
 .right
 {
@@ -697,7 +694,6 @@ border-collapse:collapse;
     padding: 0px;
     width: 33%;
 }
-
 selectMenu
 {
     width: 50px;
@@ -710,8 +706,6 @@ selectMenu
 {
    width: 35%; float: left; 
 }
-
-
 .imageContainer
 {
     position: relative;
@@ -719,7 +713,6 @@ selectMenu
     height: 155px;
     background: #333;
 }
-
 #galleryimage, #pqr
 {
     position: absolute;
@@ -729,16 +722,13 @@ selectMenu
     bottom: 0;
     margin: auto;
 }
-
- /* popup_box DIV-Styles*/
     #popup_box { 
-        display:none; /* Hide the DIV */
+        display:none;
         background: #000;
         width: 700px;
         height: 600px;
         position:absolute;  
-        z-index:100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
-        
+        z-index:100;   
     }
     #fadeDiv{position: absolute;background: rgba(0,0,0,0.7);z-index: 99;top: 0;left: 0;}
     #popupBoxClose{float: right;color: #fff;}

@@ -171,6 +171,7 @@ public function get_post_for_testimonials()
     public function get_slider()
     {
         $this->db->from('slide');
+        $this->db->order_by("id", "desc");
         $query = $this->db->get();
         return $query->result();
     }
