@@ -1,6 +1,6 @@
 <?php
 function pdo_db(){
-    $db = new PDO("mysql:host=localhost;dbname=bnw", "root", "salyani123");
+    $db = new PDO("mysql:host=localhost;dbname=bnw", "root", "");
     return $db;
 }
 /* 
