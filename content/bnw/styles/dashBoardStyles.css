@@ -32,7 +32,7 @@
     
     .mediaPopUp{width: 1000px;height: 500px;display: none;background: #fff;z-index: 99;position: absolute;box-shadow: 0 0 5px #111;}
     
-    //media
+    /*media*/
     
 html, body {font-family: calibri;}
 ul.tsc_pagination { margin:4px 0; padding:0px; overflow:hidden; font:12px 'Tahoma'; list-style-type:none; }
@@ -176,7 +176,6 @@ button {
     background-color: #222;
     border-bottom: 1px solid #fff;
 }
-
 hr.hr-gradient
 {
     background: -webkit-linear-gradient(to right, #FFFFFF, #6A6868 0%, #FFFFFF);
@@ -187,7 +186,6 @@ hr.hr-gradient
     border: 0 none;
     height: 3px;
 }
-
 .product_image_div{
     width: 100px;
     height: 100px;
@@ -196,7 +194,6 @@ hr.hr-gradient
     margin: 10px 75px 10px 10px;
     float: left;
 }
-
 #topLeft
 {
     float: left;
@@ -220,24 +217,20 @@ hr.hr-gradient
 }
 .leftSide
 {   
-    float: left;
-    
+    float: left;  
 }
 .rightSide
 {
     float: left;
     padding: 0 2% 2% 2%;
 }
-
 .logo
 {
     float: left;
     padding: 4px 4px 0px 0px;
 }
-
 .leftSide ul li
-{
-    
+{  
     margin: 0;
     padding: 5px;
 }
@@ -250,13 +243,10 @@ h3
 {
     width: 100%;
     padding: 0px;
-
     margin: 0 0 20px 0;
     min-height:200px;
-
     margin: 0px;
     min-height: 540px;
-
     float: left;
     background-color: #000;
 }
@@ -265,14 +255,11 @@ ul.menu
     margin: 0px;
     padding: 0px;
     background-color: #222;
-    min-height: 30px;
-    
+    min-height: 30px;  
 }
 ul li.mainMenuItem a
 {
-   /*padding-left: 10px;*/
     width: 190px;
-    /*min-height: 30px;*/
 }
 /*.mainMenuItem ul li a{padding-left: -22px;}*/
 ul.menu li.mainMenuItem
@@ -284,17 +271,12 @@ ul.menu li.mainMenuItem
     font-family: calibri;
     
 }
-ul.menu li.mainMenuItem > ul.subMenu
-{
-    /*margin-top: 15px;*/
-}
 ul.subMenu
 {
      background-color: #444;
      width: 125%;
      display:none;
-     margin: 5px -5px -5px -45px;
-     
+     margin: 5px -5px -5px -45px;   
 }
 ul.subMenu li
 {
@@ -305,12 +287,10 @@ ul.subMenu li:hover
 {  
     background-color: #333;
 }
-
 ul.menu li.mainMenuItem ul.subMenu li
 {
      font-size: 14px;
-     list-style-type: none;
-     
+     list-style-type: none;  
 }
 ul.menu li.mainMenuItem:hover
 {
@@ -332,8 +312,6 @@ ul.menu li.mainMenuItem:hover
     padding: 0px;
     min-height: 250px;
 }
-
-
 #footer
 {
     width: 100%;
@@ -412,7 +390,6 @@ ul.menu li.mainMenuItem:hover
 }
 #forRightPage
 {
-    //width:250px;
     float: left;
     margin-left: 45px;
     min-height: 200px;
@@ -432,7 +409,7 @@ ul.menu li.mainMenuItem:hover
         min-height: 521px;
     }
 /*for media screen 1025-1500px*/
-@media screen and (max-width : 1500px)
+@media screen and (max-width : 2500px)
 {
     .full
     {
@@ -446,7 +423,7 @@ ul.menu li.mainMenuItem:hover
     .rightSide
     {
         width: 84%;
-        min-height: 521px;
+        min-height: 720px;
     }
     .leftSide
     {
@@ -466,9 +443,42 @@ ul.menu li.mainMenuItem:hover
         font-size: 10px;
         text-align: center;
     }
-    ul.menu, li.mainMenuItem
+    
+}
+
+@media screen and (max-width : 1500px)
+{
+    .full
     {
-        /*min-height: 35px;*/
+        width: 100%;
+        
+    }
+    #topLeft
+    {
+        display: none;
+    }
+    .rightSide
+    {
+        width: 84%;
+        min-height: 720px;
+    }
+    .leftSide
+    {
+        display: block;
+        width: 16%;
+        min-height: 500px;
+        background-color: #000;
+    }
+    
+    #bnwcredit
+    {
+        color: #ccc;
+        margin-top: 30px;
+    }
+    #bnwcredit p
+    {
+        font-size: 10px;
+        text-align: center;
     }
     
 }
@@ -538,7 +548,7 @@ ul.menu li.mainMenuItem:hover
     {
         position: absolute;
         left: 0;
-        top: 58px;
+        top: 50px;
         -webkit-top:65px;
         min-width: 150px;
         display: none;
@@ -551,6 +561,8 @@ ul.menu li.mainMenuItem:hover
     .leftSide
     {
         width: 225px;
+        z-index: 1;
+        min-height: 720px;
     }
     ul.menu, li.mainMenuItem
     {
@@ -559,10 +571,6 @@ ul.menu li.mainMenuItem:hover
     ul.subMenu 
     {
         width: 265px;
-    }
-    ul.subMenu li
-    {
-        width: 340px;
     }
 }
 
@@ -594,10 +602,7 @@ ul.menu li.mainMenuItem:hover
     {
         width: 265px;
     }
-    ul.subMenu li
-    {
-        width: 340px;
-    }
+    
 }
 
 /*for media screen having maximum width 320px*/
@@ -640,7 +645,8 @@ ul.menu li.mainMenuItem:hover
     float: left;
     width: 200px;
     border: #999999 solid 1px;
-    margin:20px 20px 0 0;
+    margin:20px 20px 10px 0;
+    min-height: 150px;
 }
 th{background-color: #444;
 color: #fff;}
@@ -670,7 +676,7 @@ border-collapse:collapse;
     border: #999999 dotted 1px;
     padding: 10px;
     margin: 10px;
-    height: 200px;
+    height: 160px;
     text-align: center;
 }
 

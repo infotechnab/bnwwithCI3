@@ -86,6 +86,41 @@ a:hover
 
 
 /* css for media screen max of 1500px and min of 1025px*/
+@media only screen and (max-width : 2500px)
+{
+    .container
+    {
+        width: 50%;
+        margin-top: 100px;
+    }
+    .left
+    {
+        width: 43%;
+        min-height: 150px;
+        float: left;
+    }
+    .right
+    {
+        width:48%;
+        float: left;
+        min-height: 300px;
+        padding: 20px;
+    }
+    #name
+    {
+        max-width: 100%!important;
+        min-height: 10px;
+        margin: 0%;
+        padding: 0%;  
+    }
+    .frame
+    {
+        width: 100%!important;
+        margin: 0px;
+        padding: 0px;
+        height: 300px;
+    }
+}
 @media only screen and (max-width : 1500px)
 {
     .container
