@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 04, 2016 at 10:03 पूर्वाह्न
+-- Generation Time: Apr 21, 2016 at 09:42 पूर्वाह्न
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -30,14 +30,6 @@ CREATE TABLE IF NOT EXISTS `album` (
   `id` int(11) NOT NULL,
   `album_name` varchar(100) NOT NULL DEFAULT 'Required'
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `album`
---
-
-INSERT INTO `album` (`id`, `album_name`) VALUES
-(7, 'my album'),
-(10, 'sf');
 
 -- --------------------------------------------------------
 
@@ -133,25 +125,6 @@ CREATE TABLE IF NOT EXISTS `contact_list` (
   `type` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `contact_list`
---
-
-INSERT INTO `contact_list` (`id`, `full_name`, `email`, `remarks`, `type`) VALUES
-(1, 'Hom Nath Bagale', 'bhomnath@salyani.com.np', NULL, 'newsletter subs'),
-(2, 'Ramji Subedi', 'rsubedi@salyani.com.np', NULL, 'newsletter subs'),
-(6, 'sushil shrestha', 'sushilsth21@gmail.com', NULL, 'newsletter subs'),
-(16, NULL, 'bhomnath@salyani.com.np', 'Well, this is embrassing!', 'feedback'),
-(17, NULL, 'bhomnath@salyani.com.np', 'Well, this is embrassing!', 'feedback'),
-(19, 'fagshfdgha', 'dsgahfd', '45645645', 'feedback'),
-(20, 'sadsadsa', 'asdsadas', 'asdasdasdas', 'feedback'),
-(21, 'sadsadsa', 'asdsadas', 'asdasdasdas', 'feedback'),
-(22, 'dfsfsd', 'sdfsdf', 'dfsdfsdfsdfs', 'feedback'),
-(23, 'kjhgfhgjyh', 'jfdhtdhgfdg', 'kjbh', 'feedback'),
-(24, 'true', 'true', 'true', 'feedback'),
-(25, 'true', 'true', 'true', 'feedback'),
-(26, 'saddasdsa', 'sadasdas@asd.asd', 'saddsadsadas', 'feedback');
-
 -- --------------------------------------------------------
 
 --
@@ -170,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `design_setup` (
 
 INSERT INTO `design_setup` (`id`, `name`, `description`) VALUES
 (0, 'header_title', 'BnW - A complete CMS#'),
-(1, 'header_logo', 'bnw1.png'),
+(1, 'header_logo', 'bnw.jpg'),
 (2, 'header_description', 'This is header..You can write whatever you want..'),
 (3, 'header_bgcolor', NULL),
 (4, 'sidebar_title', 'Quick navigation abcdefg'),
@@ -195,18 +168,15 @@ CREATE TABLE IF NOT EXISTS `events` (
   `image` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `type` varchar(255) NOT NULL,
   `seo_title` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `events`
 --
 
 INSERT INTO `events` (`id`, `title`, `details`, `location`, `start_date`, `end_date`, `insert_date`, `last_modified_date`, `image`, `type`, `seo_title`) VALUES
-(16, 'new event', '<p>this is new event going to be organized very soon.this is new event going to be organized very soon.this is new event going to be organized very soon.this is new event going to be organized very soon.this is new event going to be organized very soon.this is new event going to be organized very soon.this is new event going to be organized very soon.this is new event going to be organized very soon.this is new event going to be organized very soon.this is new event going to be organized very so</p>', 'Bharatpur', '2015-06-17 18:15:00', NULL, '0000-00-00', '2015-06-19', '', 'event', ''),
-(21, 'Krishna ko news', '<p>asdasdasdas</p>', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2015-06-19', '2015-06-19', '', 'news', ''),
-(23, 'Krishna ko event', '<p>asdas</p>', 'saa', '2015-06-29 18:15:00', NULL, '0000-00-00', NULL, NULL, 'event', ''),
-(30, 'event', '', '', NULL, NULL, '2015-06-21', NULL, NULL, 'news', ''),
-(31, 'vdgashfsahg', '<p>fghfsahgfdhgasdsa</p>', '', NULL, NULL, '2015-09-28', NULL, NULL, 'news', '');
+(32, 'this is for test purpose title', '<p>a</p>', '', NULL, NULL, '2016-04-07', NULL, NULL, 'news', 'this-is-for-test-purpose-title'),
+(33, 'this is for test purpose title', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-07', '2016-04-07', '', 'news', 'this-is-for-test-purpose-title-1');
 
 -- --------------------------------------------------------
 
@@ -245,20 +215,6 @@ CREATE TABLE IF NOT EXISTS `media` (
   `media_link` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `media`
---
-
-INSERT INTO `media` (`id`, `media_name`, `media_type`, `media_association_id`, `media_link`) VALUES
-(21, 'Required', '5581571c542891.53382514.png\r\n', NULL, NULL),
-(23, 'Required', '55815fcd5c94a6.20846743.jpg', NULL, NULL),
-(24, 'werqwerqwer', 'iATx7Screenshot (136).png', 10, '0'),
-(42, 'asdfsafd', 'url.jpg', NULL, 'http://localhost/bnw/content/images/url.jpg'),
-(46, 'Required', '55890a94da8ce3.98961789.jpg', NULL, NULL),
-(50, 'sdfsfsf', 'udrl.jpg', 10, '0'),
-(52, 'sadfsafsasadf', 'hgignore_global.gif', NULL, 'http://localhost/bnw/content/images/hgignore_global.gif'),
-(54, 'drrds', 'hgignore_global2.gif', 10, '0');
-
 -- --------------------------------------------------------
 
 --
@@ -294,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `meta_data` (
 --
 
 INSERT INTO `meta_data` (`id`, `name`, `value`) VALUES
-(1, 'siteurl', 'www.salyani.org'),
+(1, 'siteurl', 'http://localhost/bnwwithCI3/'),
 (2, 'title', 'BnW - An complete CMS'),
 (3, 'keywords', 'BBC'),
 (4, 'description', 'Home loan'),
@@ -342,7 +298,16 @@ CREATE TABLE IF NOT EXISTS `navigation` (
   `page_id` int(11) DEFAULT NULL,
   `category_id` varchar(255) DEFAULT NULL,
   `post_id` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `navigation`
+--
+
+INSERT INTO `navigation` (`id`, `navigation_name`, `navigation_link`, `parent_id`, `navigation_type`, `navigation_slug`, `menu_id`, `page_id`, `category_id`, `post_id`) VALUES
+(6, 'Home', '#', 0, '', 'Home', 4, NULL, NULL, NULL),
+(7, 'What It Does', '#introduction', 0, '', 'WhatItDoes', 4, NULL, NULL, NULL),
+(8, 'Download', 'http://localhost/bnwwithCI3/demo/download', 0, '', 'Download', 4, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -368,27 +333,15 @@ CREATE TABLE IF NOT EXISTS `page` (
   `allow_share` tinyint(1) DEFAULT NULL,
   `images` varchar(255) DEFAULT NULL,
   `seo_title` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `page`
 --
 
 INSERT INTO `page` (`id`, `page_name`, `page_content`, `page_author_id`, `page_date`, `page_summary`, `page_status`, `page_modifed_date`, `page_parent`, `page_order`, `page_type`, `page_tags`, `allow_comment`, `allow_like`, `allow_share`, `images`, `seo_title`) VALUES
-(6, 'pagination trackdfh', '<p>sfsfdgsdfgdg</p>', 10, '2015-05-31 10:08:04', '<p>sfsfdgsdfgdg</p>', '1', '2015-06-19 04:44:25', 0, 0, '', '0', 0, 1, 1, '0', ''),
-(9, ' kamal ', '<p>&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;</p>\r\n<p>kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;</p>\r\n<p>kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;</p>\r\n<p>kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;</p>', 10, '2015-05-31 10:19:30', '<p>&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kamal&nbsp;kam', '0', '2015-06-18 03:35:15', 0, 0, '', '0', 0, 1, 1, '0', ''),
-(23, 'Hari parsad ', '<p>Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;</p>\r\n<p>Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;</p>\r\n<p>Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;</p>\r\n<p>Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;</p>', 10, '2015-06-01 07:48:47', '<p>Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nbsp;Hari&nb', '1', '2015-06-19 05:11:26', 0, 0, '', '0', 0, 1, 1, '0', ''),
-(24, 'my new page', '<ul>\r\n<li>&nbsp;wjnkjsc kjw ckjweckj</li>\r\n<li>skjdcnsdkjc</li>\r\n<li>skjdcnksdjcnkjsd</li>\r\n<li>sdncsdnckjsd</li>\r\n<li>skdjcnskdjnj</li>\r\n<li>kjbkjbkjkjkj</li>\r\n<li>kjuknnkjnkj</li>\r\n</ul>\r\n<p>hello k cha khaber</p>\r\n<p>hahhahhaha</p>', 10, '2015-06-02 09:46:50', '<ul>\r\n<li>&nbsp;wjnkjsc kjw ckjweckj</li>\r\n<li>skjdcnsdkjc</li>\r\n<li>skjdcnksdjcnkjsd</li>\r\n<li>sdnc', '0', '2015-06-18 05:12:41', 0, 0, '', '0', 1, 1, 1, 'TPuT8yesno plugin.JPG', ''),
-(26, 'Test page & sushil fdgh ksdfgsdg', '<p><em><strong>I am </strong></em>writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test p<em><strong>age.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;I am writing the content for test page.&nbsp;</strong></em></p>', 10, '2015-06-03 06:31:24', '<p><em><strong>I am </strong></em>writing the content for test page.&nbsp;I am writing the content f', '1', '2015-06-18 05:26:40', 0, 0, '', '0', 0, 1, 1, '0', ''),
-(29, ' hqwiur hqw u"SAF as F"wee"AF"87378as rsdfgsdgsd fs', '<p>"jkbkjvbfvbnjkkj kjkjfgkjdfg bkjdbgkjdfjkngjnfdjkf bdkjgbdjfkgkjdkjfgjkbjkbkj"</p>', 10, '2015-06-16 08:05:18', '<p>"jkbkjvbfvbnjkkj kjkjfgkjdfg bkjdbgkjdfjkngjnfdjkf bdkjgbdjfkgkjdkjfgjkbjkbkj"</p>', '1', '2015-06-18 05:31:04', 0, 0, '', '0', 0, 1, 1, '0', ''),
-(33, '& fhgfsh', '<p>gsdjkvkjhdv hsdkjhkjhdvk kjhskjhdvkjhsd</p>', 10, '2015-06-19 10:44:25', '<p>gsdjkvkjhdv hsdkjhkjhdvk kjhskjhdvkjhsd</p>', '1', '2015-06-19 04:59:25', 0, 0, '0', '0', 0, 1, 1, '', ''),
-(34, 'fghffgfhg', '<p>jhjhghjj hhjgjhj&nbsp;</p>', 10, '2015-06-19 11:11:40', '<p>jhjhghjj hhjgjhj&nbsp;</p>', '1', '2015-06-19 05:26:40', 0, 0, '0', '0', 0, 1, 1, '', ''),
-(35, 'testing', '<p>ghfghdiufhgiu jdfkjghdkjhf djkhfjkhfdk jdkfhguihd</p>', 10, '2015-06-19 11:12:02', '<p>ghfghdiufhgiu jdfkjghdkjhf djkhfjkhfdk jdkfhguihd</p>', '1', '2015-06-19 05:27:02', 0, 0, '0', '0', 0, 1, 1, '', ''),
-(36, 'pages', '<p>hhgskhkhkfg iuhdigh iuhdgh</p>', 10, '2015-06-19 11:12:30', '<p>hhgskhkhkfg iuhdigh iuhdgh</p>', '1', '2015-06-19 05:27:30', 0, 0, '0', '0', 0, 1, 1, '', ''),
-(37, 'abc', '<p>body &nbsp;body&nbsp;body vvbody&nbsp;body&nbsp;body vbody&nbsp;</p>', 10, '2015-06-19 11:13:41', '<p>body &nbsp;body&nbsp;body vvbody&nbsp;body&nbsp;body vbody&nbsp;</p>', '0', '2015-06-21 01:03:12', 0, 0, '', '0', 0, 1, 1, 'hofBn4QLPtevnt_img.PNG', ''),
-(38, 'jpgggggg', '<p>kskjvjvskjdvkjhskjhd hbfvbsjkv hfbh jvlksj.</p>\r\n<ul  circle;">\r\n<li>hgkhkghhd</li>\r\n<li>jhdfkjghfjdk</li>\r\n<li>kdhfglkhfd</li>\r\n<li>hsdkghkldfh</li>\r\n<li>dsfhfdh</li>\r\n<li>kjkjhk</li>\r\n</ul>', 10, '2015-06-19 11:14:05', '<p>kskjvjvskjdvkjhskjhd hbfvbsjkv hfbh jvlksj.</p>\r\n<ul  circle;">\r\n<li>hgkhkghhd</li>\r\n<li>jhdfkjgh', '1', '2015-06-19 05:33:20', 0, 0, '', '0', 0, 1, 1, '0', ''),
-(39, 'title', '<p>hfjgkhkjghkjsf dhgkjhfdkjg jhdkjfhgkjf</p>', 10, '2015-06-19 11:14:32', '<p>hfjgkhkjghkjsf dhgkjhfdkjg jhdkjfhgkjf</p>', '1', '2015-06-19 05:29:32', 0, 0, '0', '0', 0, 1, 1, '', ''),
-(43, 'krishna', '<p>gsjhgfjdsfkjhd</p>', 10, '2015-06-19 11:16:29', '<p>gsjhgfjdsfkjhd</p>', '1', '2015-06-19 05:31:29', 0, 0, '0', '0', 0, 1, 1, '', '');
+(44, 'This title goes for the url & here''s the code', '<p>aa</p>', 10, '2016-04-07 09:10:38', '<p>aa</p>', '1', '2016-04-07 05:32:16', NULL, 0, '', NULL, 1, 1, NULL, NULL, 'this-title-goes-for-the-url-heres-the-code'),
+(45, 'This title goes for the url & here''s the code', '<p>a</p>', 10, '2016-04-07 09:17:01', '<p>a</p>', '1', '2016-04-07 05:32:01', NULL, 0, NULL, NULL, 1, 1, 0, '', 'this-title-goes-for-the-url-heres-the-code-1');
 
 -- --------------------------------------------------------
 
@@ -413,15 +366,15 @@ CREATE TABLE IF NOT EXISTS `post` (
   `allow_share` tinyint(1) DEFAULT NULL,
   `image` varchar(100) DEFAULT NULL,
   `seo_title` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `post`
 --
 
 INSERT INTO `post` (`id`, `post_title`, `post_author_id`, `post_date`, `post_summary`, `post_status`, `comment_status`, `post_modified_date`, `post_tags`, `post_content`, `post_category`, `allow_comment`, `allow_like`, `allow_share`, `image`, `seo_title`) VALUES
-(55, 'New Post ', 0, '2015-06-21 07:31:11', '<p>My Post.. jbkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjbbbbbbbbbjjkkkkkkkkkkkkkkkkkkkkkkkk</p>', '0', NULL, NULL, NULL, '<p>My Post.. jbkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjbbbbbbbbbjjkkkkkkkkkkkkkkkkkkkkkkkk</p>', '45', 0, 0, 0, '5c95ilatest bnw.PNG', ''),
-(56, 'gdsjhgfsdjhg', 0, '2015-09-28 08:07:48', '<p>jhgfdsjhgfjhsdgjfsd</p>', NULL, NULL, NULL, NULL, '<p>jhgfdsjhgfjhsdgjfsd</p>', '0', 0, 0, 0, NULL, '');
+(57, 'this is for test purpose title', 0, '2016-04-07 09:18:09', '<p>a</p>', NULL, NULL, NULL, NULL, '<p>a</p>', 'None', NULL, NULL, NULL, '', 'this-is-for-test-purpose-title'),
+(58, 'this is for test purpose title', 0, '2016-04-07 09:18:41', '<p>a</p>', NULL, NULL, NULL, NULL, '<p>a</p>', 'None', NULL, NULL, NULL, '', 'this-is-for-test-purpose-title-1');
 
 -- --------------------------------------------------------
 
@@ -434,19 +387,15 @@ CREATE TABLE IF NOT EXISTS `slide` (
   `slide_name` varchar(100) NOT NULL DEFAULT 'Required',
   `slide_image` varchar(100) NOT NULL DEFAULT 'Required',
   `slide_content` text
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `slide`
 --
 
 INSERT INTO `slide` (`id`, `slide_name`, `slide_image`, `slide_content`) VALUES
-(7, 'home', 'BLDHM026.JPG', 'This is home.'),
-(8, 'Mobile', 'a3price.PNG', 'A3 vs A5'),
-(9, '"3"', 'images_(1).png', 'This is image no "3"..'),
-(10, '4', 'inspiring-quotes-positive-thinking-2-600x512.jpg', 'This is image 4...Inspiring  Quotes for life..'),
-(11, 'Image 5', 'o-POSITIVE-THINKING-facebook.jpg', 'My Positive Thinking'),
-(12, 'Study In japan', '1.JapanStudy_1.jpg', '');
+(13, 'MVC Pattern', 'mvc_role_diagram.png', ''),
+(14, 'Codeigniter Framework', 'framework.png', '');
 
 -- --------------------------------------------------------
 
@@ -623,7 +572,7 @@ ALTER TABLE `design_setup`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `gadgets`
 --
@@ -653,22 +602,22 @@ ALTER TABLE `misc_setting`
 -- AUTO_INCREMENT for table `navigation`
 --
 ALTER TABLE `navigation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `page`
 --
 ALTER TABLE `page`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `slide`
 --
 ALTER TABLE `slide`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `user`
 --

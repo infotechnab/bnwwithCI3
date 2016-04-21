@@ -7,8 +7,7 @@
         <script src="<?php echo base_url(); ?>content/bnw/scripts/jquery.min.js" ></script>
         <script src="<?php echo base_url(); ?>content/bnw/scripts/jquery.js" ></script>
         <script src="<?php echo base_url(); ?>content/bnw/scripts/confirm.js" ></script>
-          <!--<script src="<?php echo base_url(); ?>content/bnw/scripts/nicEdit.js"></script>-->
-        <script src="<?php echo base_url(); ?>content/bnw/scripts/DeleteImage.js"></script>
+<!--        <script src="<?php //echo base_url(); ?>content/bnw/scripts/DeleteImage.js"></script>-->
         <script src="<?php echo base_url(); ?>content/bnw/scripts/gadgets.js"></script>
         <script src="<?php echo base_url(); ?>content/bnw/scripts/jquery.imgareaselect.pack.js"></script>
         <script src="<?php echo base_url(); ?>content/bnw/scripts/script.js"></script>
