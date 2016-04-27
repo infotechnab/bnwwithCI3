@@ -41,12 +41,10 @@
 <script>
     $(document).ready(function(){
        $(document).on("click", ".del_category", function(){
-           var id = $(this).attr("id");
-            $(this).confirm();
+            var id = $(this).attr("id");
             var url = '<?php echo base_url().'index.php/subscribers/deleteRemarks' ?>';
-            var hideid = $(this);
-            $(this).confirm.yes({id:id,url:url,thiss:hideid});
-            $(this).confirm.no();
+             var hideid = $(this);
+            senddata({id:id,url:url,thiss:hideid});
             
        });
     });

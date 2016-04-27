@@ -26,7 +26,7 @@ function fetch_menu($query) {
 		$menu_id = $result ['id'];
 		$menu_name = $result ['navigation_name'];
 		$menu_link = $result ['navigation_link'];
-		echo "<li  class='dropdown'><a data-toggle='dropdown' class='dropdown-toggle' href='{$menu_link}'>{$menu_name} ";
+		echo "<li  class='dropdown'><a class='dropdown-toggle' href='{$menu_link}'>{$menu_name} ";
 		if (has_child ( query ( $menu_id))) {
 			echo "<i class='fa fa-angle-down'></i></a><ul aria-labelledby='dropdownMenu' role='menu' class='dropdown-menu multi-level'>";
 			fetch_menu ( query ( $menu_id) );
