@@ -31,7 +31,7 @@
             }
         }
  else {
-     echo '<h3>Sorry pages are not available</h3>';
+     echo '<h3>Sorry subscribers are not available</h3>';
  }
     ?>
     </table>

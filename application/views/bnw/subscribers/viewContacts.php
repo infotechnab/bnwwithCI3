@@ -29,7 +29,7 @@
             }
         }
  else {
-     echo '<h3>Sorry pages are not available</h3>';
+     echo '<h3>Sorry contact lists are not available</h3>';
  }
     ?>
     </table>
