@@ -20,6 +20,99 @@ class Dbmodel extends CI_Model {
         }
     }
 
+    function login_attempt() {
+         $query = $this->db->get('login_attempt');
+            if($query->result()==0)
+            {
+
+              $data = array( 'id'=>1,'attempt' => 0);
+              $this->db->insert('login_attempt', $data);
+
+            }
+            else 
+            {
+
+              $query = $this->db->get('login_attempt');
+
+              foreach ($query->result() as $row)
+              {
+                $db_attempt=$row->attempt;
+
+              }
+
+              $attempt= $db_attempt +1;
+              $this->session->set_userdata('attempt_session_value',$attempt);
+              $data = array( 'id'=>1,'attempt' => $attempt);
+
+              $this->db->update('login_attempt', $data);
+                // start of login-attempt list;
+
+
+              $cilent_ip_address=$this->get_client_ip_env();
+              $query = $this->db->get_where('login_attempt_list', array('ip_address'=>$cilent_ip_address));
+
+
+
+              if($query->result())
+              {
+
+                foreach($query->result() as $row)
+                {
+                 $db_ipaddress=$row->ip_address;
+                 $db_id= $row->id;
+                 $cilent_ip_address=$this->get_client_ip_env();
+                 $user_attempts=$row->user_attempts;
+               }
+
+               if($db_ipaddress == $cilent_ip_address)
+
+                {    $last_attempt_date= date('Y-m-d H:i:s');
+              $user_attempts=$user_attempts +1;
+              $data=array('id'=>$db_id,'user_attempts'=>$user_attempts, 'last_attempt_date'=>$last_attempt_date);
+              
+              $this->db->update('login_attempt_list', $data);
+              echo "<script>alert('ok updadte succcfully ')</script>";
+
+            }
+            
+
+          }//for alderyd user in database;
+
+          else {
+
+           $user_attempts=1;
+           $name=$this->input->post('username');
+           $ip_address=$this->get_client_ip_env();
+           $last_attempt_date= date('Y-m-d H:i:s');
+           $data=array(
+            'id'=>1,
+            'name' =>$name,
+            'user_attempts'=>$user_attempts,
+            'ip_address' =>$ip_address,
+            'last_attempt_date' =>$last_attempt_date
+            );
+
+           $this->db->insert('login_attempt_list', $data);
+         }
+            ////ehd of login A-attemt list
+
+
+
+         if($attempt >=3)
+         {
+
+          $cookie_name = "attempt";
+          $cookie_value = $attempt;
+          setrawcookie($cookie_name, $cookie_value, time() + 250, "/");
+
+        }
+
+
+      }
+
+
+    }
+
     //Get the selected category ID
     public function get_id_of_selected_category($navigation_link) {
 

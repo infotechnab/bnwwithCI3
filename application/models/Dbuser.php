@@ -21,6 +21,13 @@ public function record_count_user() {
         $query = $this->db->get('user');
         return $query->result();
     }
+     public function login_attempts_list()
+    {
+           $query= $this->db->get('login_attempt_list');
+           return $query->result();
+
+
+    }
     
     public function check_email_username($name,$email)
     {

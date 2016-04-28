@@ -21,33 +21,37 @@
         </div>
  <div class="modal-body" style="padding:50px 50px;">
 
-<form ng-app="myApp" ng-controller="validateCtrl" 
+<form ng-app="myApp" action="<?php echo  base_url().'login/email' ; ?>" method="post" ng-controller="validateCtrl" 
 name="myForm" novalidate>
+
+           <?php  //if  eror occur
+           $admin_login_error=$this->session->flashdata('message');
+                if(isset($admin_login_error)) {
+                echo "<div class='alert alert-default fade in ' style='background-color:black;color:white;'><strong>".$admin_login_error."</strong></div>"; } ?>
 
 <table>
 <tr>
 <td>
-<input type="email" class="form-control" style="padding:21px;" name="email" ng-model="email" required>
+<input type="email" class="form-control"  name="user_email" ng-model="email" required>
 
 
 </td>
 <td>
 
 
-<input   type="submit"  class=" email btn btn-default btn-lg" value="submit email"
+<input   type="submit"  class="  btn btn-default btn-block " value="submit email"
   ng-disabled="incomplete ||
-  myForm.email.$dirty && myForm.email.$invalid ">
+  myForm.user_email.$dirty && myForm.user_email.$invalid ">
 </td>
 </tr>
 
 </table>
 <p>
-<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
-<span ng-show="myForm.email.$error.required">Email is required.</span>
-<span ng-show="myForm.email.$error.email">Invalid email address.</span>
+<span style="color:red" ng-show="myForm.user_email.$dirty && myForm.user_email.$invalid">
+<span ng-show="myForm.user_email.$error.required">Email is required.</span>
+<span ng-show="myForm.user_email.$error.email">Invalid email address.</span>
 </span>
 </p>
-{{email}}
 
 
 </form>
