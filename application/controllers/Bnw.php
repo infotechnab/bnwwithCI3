@@ -39,6 +39,7 @@ class bnw extends CI_Controller {
             $index = mt_rand(0, $validCharNumber - 1);
             $result .= $validCharacters[$index];
         }
+       
         return $result;
     }
 

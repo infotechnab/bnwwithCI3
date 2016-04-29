@@ -14,6 +14,7 @@ class Login extends CI_Controller {
     $this->load->helper('url');
     $this->load->helper(array('form', 'url'));
     $this->load->library("pagination");
+
   }
 
 
@@ -62,6 +63,12 @@ class Login extends CI_Controller {
       }
 
       function index() {
+         if ($this->session->userdata('admin_logged_in') == true)
+     {
+       return  redirect('bnw/index' ,'refresh');
+
+
+     } 
         if(isset($_GET['url'])){
           $data['link'] = $_GET['url'];
         }
