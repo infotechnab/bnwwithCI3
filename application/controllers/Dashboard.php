@@ -426,10 +426,7 @@ class Dashboard extends CI_Controller {
                     if ($navigationName == 'Make Parent')
                         $parent_id = '0';
                     else {
-                        $post_category_info = $this->dbdashboard->get_navigation_info($navigationName);
-                        foreach ($post_category_info as $pid) {
-                            $parent_id = $pid->id;
-                        }
+                        $parent_id = $navigationName;
                     }
 
                     foreach ($listOfSelectedMenu as $myData) {
@@ -518,10 +515,7 @@ class Dashboard extends CI_Controller {
                     if ($navigationName == 'Make Parent')
                         $parent_id = '0';
                     else {
-                        $post_category_info = $this->dbdashboard->get_navigation_info($navigationName);
-                        foreach ($post_category_info as $pid) {
-                            $parent_id = $pid->id;
-                        }
+                        $parent_id = $navigationName;
                     }
 
                     foreach ($listOfSelectedMenu as $myData) {
@@ -607,10 +601,7 @@ class Dashboard extends CI_Controller {
                     if ($navigationName == 'Make Parent')
                         $parent_id = '0';
                     else {
-                        $post_category_info = $this->dbdashboard->get_navigation_info($navigationName);
-                        foreach ($post_category_info as $pid) {
-                            $parent_id = $pid->id;
-                        }
+                        $parent_id = $navigationName;
                     }
                     
                     $categoryList = Array();
@@ -711,10 +702,7 @@ class Dashboard extends CI_Controller {
                         if ($navigationName == 'Make Parent') {
                             $parent_id = '0';
                         } else {
-                            $post_category_info = $this->dbdashboard->get_navigation_info($navigationName);
-                            foreach ($post_category_info as $pid) {
-                                $parent_id = $pid->id;
-                            }
+                            $parent_id = $navigationName;
                         }
                          $navigationName = $this->input->post('navigation_name');
                 $navigationLink = $this->input->post('navigation_link');

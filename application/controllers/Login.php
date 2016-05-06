@@ -1,6 +1,4 @@
-<?php
-
-if (!defined('BASEPATH'))
+<?php if (!defined('BASEPATH'))
   exit('No direct script access allowed');
 
 class Login extends CI_Controller {
@@ -155,10 +153,8 @@ class Login extends CI_Controller {
               $query = $this->db->get('login_attempt');
               if($query->result()==0)
               {
-
                 $data = array( 'id'=>1,'attempt' => 0);
                 $this->db->insert('login_attempt', $data);
-
               }
               else 
               {

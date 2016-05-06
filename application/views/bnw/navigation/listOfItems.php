@@ -14,10 +14,11 @@
                                     {
                                         thiss.html(" ");
                                         var data = JSON.parse(dat);
-                                        var initOptions = "<option>Make Parent</option>";
+                                         var initOptions = "<option value='Make Parent'>Make Parent</option>";
+                                        var options ='';
                                         for(var i=0;i<data.length;i++)
                                         {
-                                            options +="<option value='"+ data[i].navigation_name +"'>"+ data[i].navigation_name +"</option>";
+                                            options +="<option value='"+ data[i].id +"'>"+ data[i].navigation_name +"</option>";
                                         }
                                         thiss.html(initOptions + options);
                                     }
